@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html lang="pt-PT" translate="no"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="Content-Language" content="pt-PT">
+<meta name="language" content="pt-PT">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VanBerto's — Palavras Cruzadas · Natal</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Fredoka+One&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'Nunito','Baloo 2',sans-serif;background:#0e2a1f;min-height:100%;overflow-x:hidden;user-select:none;-webkit-user-select:none;}
+
+/* PROFESSORA TAG */
+@keyframes vbFloat2{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+#prof-tag{position:fixed;bottom:.6rem;left:50%;transform:translateX(-50%);z-index:600;font-family:'Nunito',sans-serif;font-size:clamp(.65rem,1.8vw,.78rem);color:#d8ecd9;font-weight:800;white-space:nowrap;text-shadow:0 1px 6px rgba(0,0,0,.8);pointer-events:none;}
+
+/* SCREENS */
+.screen{display:none;min-height:100vh;min-height:100dvh;padding:1.5rem .75rem max(4rem,calc(4rem + env(safe-area-inset-bottom)));align-items:center;justify-content:center;flex-direction:column;}
+.screen.active{display:flex;}
+.screen{
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 45%,rgba(214,40,57,.16) 0%,rgba(14,42,31,0) 55%,rgba(5,15,10,.94) 100%),
+    rgba(5,15,10,.9);
+  animation:festFlicker 6s ease-in-out infinite;
+}
+@keyframes festFlicker{
+  0%,100%{background:radial-gradient(ellipse 70% 55% at 50% 45%,rgba(214,40,57,.16) 0%,rgba(14,42,31,0) 55%,rgba(5,15,10,.94) 100%),rgba(5,15,10,.9);}
+  33%{background:radial-gradient(ellipse 68% 53% at 51% 43%,rgba(255,200,50,.18) 0%,rgba(14,42,31,0) 55%,rgba(5,15,10,.92) 100%),rgba(5,15,10,.9);}
+  66%{background:radial-gradient(ellipse 72% 58% at 49% 47%,rgba(80,200,120,.14) 0%,rgba(14,42,31,0) 55%,rgba(5,15,10,.92) 100%),rgba(5,15,10,.9);}
+}
+@keyframes vbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* MODAL */
+.modal-card{width:min(520px,96vw);background:linear-gradient(145deg,#16402f,#0d2a1e 60%,#07170f);border-radius:16px;box-shadow:0 0 0 3px #d62839,0 0 0 5px #ffd35a,8px 8px 0 #04100a,0 0 50px rgba(214,40,57,.22);padding:clamp(16px,3vw,26px) clamp(14px,3vw,24px);position:relative;animation:cardPop .25s cubic-bezier(.34,1.56,.64,1) both;}
+@keyframes cardPop{from{transform:scale(.88) rotate(-1.5deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+.modal-card::before{content:'🎄';position:absolute;top:8px;left:10px;font-size:18px;opacity:.65;pointer-events:none}
+.modal-card::after{content:'🎁';position:absolute;bottom:8px;right:10px;font-size:18px;opacity:.65;pointer-events:none}
+.modal-robot-row{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:16px;}
+.modal-robot{height:clamp(72px,14vw,90px);width:auto;flex-shrink:0;filter:drop-shadow(0 0 14px rgba(56,189,248,.8));animation:vbFloat 3s ease-in-out infinite;}
+.modal-robot-arm{transform-origin:65px 37px;animation:waveArm 1.6s ease-in-out infinite;}
+@keyframes waveArm{0%,100%{transform:rotate(0)}25%,75%{transform:rotate(-20deg)}}
+.modal-eyelid{transform-origin:40px 23px;animation:eyeBlink 5s ease-in-out infinite;}
+@keyframes eyeBlink{0%,88%,100%{transform:scaleY(0)}93%{transform:scaleY(1)}}
+.modal-bubble-box{background:linear-gradient(135deg,#dcebff,#fff);border:3px solid #0f172a;outline:2px solid #1e293b;outline-offset:-4px;border-radius:20px;padding:10px 14px 10px 18px;box-shadow:4px 4px 0 #0f172a;font-family:"Comic Sans MS","Trebuchet MS",sans-serif;font-size:clamp(.78rem,2.3vw,.9rem);font-weight:bold;color:#0f172a;max-width:200px;line-height:1.45;text-align:center;position:relative;margin-left:10px;}
+.modal-bubble-box::after{content:"";position:absolute;left:-16px;top:50%;transform:translateY(-50%);border-top:10px solid transparent;border-bottom:10px solid transparent;border-right:16px solid #0f172a;}
+.modal-bubble-box::before{content:"";position:absolute;left:-11px;top:50%;transform:translateY(-50%);border-top:8px solid transparent;border-bottom:8px solid transparent;border-right:12px solid #dcebff;z-index:1;}
+.modal-title{font-family:'Fredoka One',cursive;font-size:clamp(1.2rem,4vw,1.55rem);color:#ffd35a;text-align:center;text-shadow:0 2px 10px rgba(214,40,57,.45);margin-bottom:10px;border-bottom:2px solid rgba(214,40,57,.4);padding-bottom:8px;}
+.name-row{display:flex;align-items:center;gap:10px;margin:0 0 12px;flex-wrap:wrap;justify-content:center}
+.name-row label{font-family:'Baloo 2',sans-serif;font-weight:900;font-size:13px;color:#ffd35a;white-space:nowrap}
+.name-row input{flex:1;min-width:150px;border:2px solid #d62839;border-radius:8px;padding:7px 12px;font-size:14px;font-family:'Nunito',sans-serif;font-weight:800;background:#0d2a1e;color:#ffd35a;outline:none;box-shadow:2px 2px 0 #d62839;transition:box-shadow .15s;}
+.name-row input:focus{box-shadow:2px 2px 0 #ffd35a,0 0 0 3px rgba(214,40,57,.3)}
+.name-row input::placeholder{color:#9bd0a8;opacity:.7}
+.btn{font-family:'Baloo 2',sans-serif;border:2.5px solid #d62839;background:linear-gradient(180deg,#1f5a40,#144031);color:#ffd35a;border-radius:10px;padding:clamp(7px,1.5vw,10px) clamp(12px,2.5vw,18px);font-weight:900;font-size:clamp(.78rem,1.8vw,.88rem);cursor:pointer;box-shadow:4px 4px 0 #04100a;transition:transform .08s,box-shadow .08s,background .12s;}
+.btn:hover{background:linear-gradient(180deg,#2a7556,#1c5a42);transform:translate(-1px,-1px);box-shadow:5px 5px 0 #04100a}
+.btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 #04100a}
+.btn.primary{background:linear-gradient(180deg,#d62839,#a81d2b);color:#fff8e0;border-color:#ffd35a;text-shadow:0 1px 3px rgba(0,0,0,.35);}
+.btn.primary:hover{background:linear-gradient(180deg,#e8485a,#c0293a)}
+.row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.tiny{margin-top:8px;font-size:11px;color:#d8ecd9;opacity:.8;font-style:italic;text-align:center}
+html:not(.desktop-stage) #recordDisplay{display:none;}
+.modal-sub{color:#d8ecd9;font-size:clamp(.78rem,2vw,.88rem);text-align:center;font-weight:700;line-height:1.4;}
+
+/* ══ GAME SCREEN ══ */
+#gameScreen{
+  padding-top:.4rem;
+  padding-left:.5rem;
+  padding-right:.5rem;
+  padding-bottom:max(3rem,calc(3rem + env(safe-area-inset-bottom)));
+  background:#0e2a1f;animation:none;align-items:stretch;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+}
+.game-top{
+  width:100%;max-width:1100px;margin:0 auto .3rem;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:.3rem;padding:0 .1rem;
+}
+.header-actions{display:flex;align-items:center;gap:5px;flex-wrap:wrap;}
+.btn-sm{padding:4px 10px!important;font-size:.72rem!important;}
+.timer-box{
+  font-family:'Baloo 2',sans-serif;font-weight:900;font-size:.78rem;
+  color:#ffd35a;background:rgba(214,40,57,.08);
+  border:2px solid rgba(255,211,90,.35);border-radius:8px;
+  padding:4px 10px;display:flex;align-items:center;gap:4px;
+  white-space:nowrap;
+}
+#timer-box.record-warn{color:#ff6b9d;border-color:#ff6b9d;}
+.level-bar{display:flex;gap:8px;justify-content:center;margin:0 0 5px;flex-wrap:wrap}
+.lvl-btn{
+  font-family:'Baloo 2',sans-serif;font-size:.82rem;font-weight:900;
+  padding:.34rem .85rem;border-radius:20px;border:2px solid transparent;
+  cursor:pointer;transition:all .18s;background:rgba(214,40,57,.06);
+}
+.lvl-btn.easy{border-color:#4ecb71;color:#4ecb71}
+.lvl-btn.easy.active{background:#4ecb71;color:#07170f;box-shadow:0 0 12px rgba(78,203,113,.45)}
+.lvl-btn.medium{border-color:#ff9f43;color:#ff9f43}
+.lvl-btn.medium.active{background:#ff9f43;color:#07170f;box-shadow:0 0 12px rgba(255,159,67,.45)}
+.lvl-btn.hard{border-color:#d62839;color:#d62839}
+.lvl-btn.hard.active{background:#d62839;color:#fff8e0;box-shadow:0 0 12px rgba(214,40,57,.5)}
+.lvl-desc{font-size:11px;color:#d8ecd9;text-align:center;margin-bottom:10px;font-style:italic;min-height:14px}
+
+/* ══ MAIN LAYOUT: grid LEFT, sidebar RIGHT on desktop ══ */
+.game-layout{
+  width:100%;max-width:1100px;margin:0 auto;
+  display:flex;flex-direction:row;
+  gap:clamp(6px,1.2vw,16px);
+  align-items:flex-start;
+  flex:1;
+}
+
+/* ══ CROSSWORD GRID ══ */
+#cw-wrap{
+  flex:0 0 auto;
+  min-width:0;
+  display:flex;
+  justify-content:center;
+  overflow:hidden;
+}
+#cw-grid{
+  display:inline-grid;
+  gap:2px;
+  background:rgba(214,40,57,.1);
+  padding:5px;
+  border-radius:10px;
+  border:2px solid rgba(214,40,57,.3);
+  box-shadow:0 0 30px rgba(214,40,57,.1);
+}
+.cw-cell{display:flex;align-items:center;justify-content:center;position:relative;border-radius:4px;transition:background .12s,color .12s,box-shadow .12s;}
+.cw-cell.empty{background:transparent;pointer-events:none;}
+.cw-cell.letter{background:rgba(10,36,26,.95);border:1.5px solid rgba(214,40,57,.35);cursor:pointer;}
+.cw-cell.letter:hover{background:rgba(214,40,57,.18);border-color:#d62839;}
+.cw-cell.active-word{background:rgba(255,211,90,.15)!important;border-color:rgba(255,211,90,.55)!important;}
+.cw-cell.active-cell{background:rgba(214,40,57,.45)!important;border-color:#d62839!important;box-shadow:0 0 10px rgba(214,40,57,.55);}
+.cw-cell.correct{background:rgba(78,203,113,.22)!important;border-color:#4ecb71!important;}
+.cw-cell.wrong-flash{animation:wrongFlash .4s ease-in-out;}
+@keyframes wrongFlash{0%,100%{background:rgba(10,36,26,.95)}50%{background:rgba(255,60,60,.4);border-color:#ff3c3c;}}
+.cw-num{position:absolute;top:1px;left:2px;font-size:clamp(5px,0.9vw,9px);font-family:'Nunito',sans-serif;font-weight:900;color:#ff9f43;line-height:1;pointer-events:none;}
+.cw-input{position:absolute;inset:0;background:transparent;border:none;outline:none;text-align:center;font-family:'Baloo 2',sans-serif;font-weight:900;color:#ffd35a;caret-color:transparent;text-transform:uppercase;width:100%;height:100%;padding:0;cursor:pointer;}
+.cw-input:disabled{color:#4ecb71;cursor:default;}
+
+/* ══ SIDEBAR: vertical column on desktop ══ */
+.sidebar{
+  flex:1;min-width:160px;max-width:250px;
+  display:flex;flex-direction:column;
+  gap:8px;
+  padding:.5rem .5rem;
+  background:rgba(214,40,57,.04);
+  border:1px solid rgba(214,40,57,.18);
+  border-radius:10px;
+  position:sticky;top:.5rem;
+  max-height:calc(100dvh - 80px);
+  overflow-y:auto;
+}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(214,40,57,.3);border-radius:4px}
+
+/* Clues inside sidebar */
+.clues-panel{display:flex;flex-direction:column;gap:6px;flex:1;}
+.clues-section{
+  background:rgba(10,36,26,.7);border:1px solid rgba(214,40,57,.22);
+  border-radius:8px;padding:7px 9px;
+}
+.clues-section::-webkit-scrollbar{width:3px}
+.clues-section::-webkit-scrollbar-thumb{background:rgba(214,40,57,.35);border-radius:4px}
+.clues-title{font-family:'Baloo 2',sans-serif;font-size:.76rem;font-weight:900;color:#d62839;margin-bottom:4px;display:flex;align-items:center;gap:4px;}
+.clue-item{display:flex;align-items:flex-start;gap:5px;padding:3px 4px;border-radius:5px;cursor:pointer;transition:background .12s;font-family:'Nunito',sans-serif;font-size:clamp(.6rem,1vw,.72rem);font-weight:700;color:#f3fbf1;line-height:1.35;border:1px solid transparent;margin-bottom:2px;}
+.clue-item:hover{background:rgba(214,40,57,.14);}
+.clue-item.active{background:rgba(255,211,90,.13);border-color:rgba(255,211,90,.32);color:#ffd35a;}
+.clue-item.done{opacity:.3;text-decoration:line-through;pointer-events:none;}
+.clue-num{font-family:'Baloo 2',sans-serif;font-weight:900;color:#ff9f43;font-size:.7rem;flex-shrink:0;min-width:14px;}
+
+/* ══ ROBOT — always column: bubble on top, robot below ══ */
+.robot-wrap{
+  display:none;
+  flex-direction:column; /* ALWAYS column — bubble top, robot bottom */
+  align-items:center;
+  gap:3px;
+  flex-shrink:0;
+  padding-top:6px;
+  border-top:1px solid rgba(214,40,57,.18);
+}
+.robot-wrap.visible{display:flex;}
+.robot-name{font-family:'Fredoka One',cursive;font-size:clamp(.6rem,1.4vw,.75rem);color:#ffd35a;text-shadow:0 1px 6px rgba(0,0,0,.8);text-align:center;margin-top:1px;line-height:1.2;}
+.bubble{
+  --bc:#dcebff;
+  background:linear-gradient(135deg,var(--bc),#fff);
+  border:3px solid #0f172a;outline:2px solid #1e293b;outline-offset:-4px;
+  border-radius:14px;padding:6px 10px 5px;
+  box-shadow:3px 3px 0 #0f172a;
+  font-family:"Comic Sans MS","Trebuchet MS",sans-serif;
+  font-size:clamp(.58rem,1.2vw,.75rem);font-weight:bold;color:#0f172a;
+  max-width:180px;min-width:80px;text-align:center;
+  pointer-events:none;line-height:1.35;position:relative;
+  margin-bottom:4px;
+}
+/* arrow pointing DOWN toward robot */
+.bubble::after{content:"";position:absolute;bottom:-13px;left:50%;transform:translateX(-50%);border-left:9px solid transparent;border-right:9px solid transparent;border-top:13px solid #0f172a;}
+.bubble::before{content:"";position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);border-left:7px solid transparent;border-right:7px solid transparent;border-top:10px solid var(--bc);z-index:1;}
+#vb-robot{width:clamp(44px,5.5vw,62px);cursor:pointer;flex-shrink:0;animation:vbFloat 3s ease-in-out infinite;filter:drop-shadow(0 0 10px #7dd3fc);}
+#vb-robot:hover{filter:drop-shadow(0 0 22px #38bdf8);}
+#vb-robot.bounce{animation:robotPop .65s cubic-bezier(.34,1.56,.64,1),vbFloat 3s ease-in-out .65s infinite;}
+@keyframes robotPop{0%,100%{transform:translateY(0) rotate(0)}30%{transform:translateY(-18px) rotate(-6deg)}70%{transform:translateY(-8px) rotate(5deg)}}
+.vb-arm{transform-origin:65px 37px;animation:waveArm 1.5s ease-in-out infinite;}
+.vb-eyelid{transform-origin:40px 23px;animation:eyeBlink 5s ease-in-out infinite;}
+
+#msg{width:100%;max-width:1100px;margin:.15rem auto 0;text-align:center;font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:900;color:#d62839;min-height:1.1rem;}
+.bottom-bar{display:none;}
+
+/* ══ ROBOT FLUTUANTE FIXO ══ */
+#fixed-robot-wrap{
+  position:fixed;
+  bottom:clamp(.6rem,2vh,1.2rem);
+  right:clamp(.6rem,2vw,1.2rem);
+  z-index:650;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:2px;
+}
+#fixed-robot-wrap.visible{display:flex;}
+#fixed-vb-robot{
+  width:clamp(64px,8.5vw,92px);
+  height:auto;
+  display:block;
+  cursor:pointer;
+  animation:vbFloat 3s ease-in-out infinite;
+  filter:drop-shadow(0 0 12px #7dd3fc);
+}
+#fixed-vb-robot:hover{filter:drop-shadow(0 0 24px #38bdf8);}
+#fixed-vb-robot.bounce{animation:robotPop .65s cubic-bezier(.34,1.56,.64,1),vbFloat 3s ease-in-out .65s infinite;}
+@keyframes robotPop{0%,100%{transform:translateY(0) rotate(0)}30%{transform:translateY(-18px) rotate(-6deg)}70%{transform:translateY(-8px) rotate(5deg)}}
+#fixed-bubble{
+  --bc:#dcebff;
+  background:linear-gradient(135deg,var(--bc),#fff);
+  border:3px solid #0f172a;outline:2px solid #1e293b;outline-offset:-4px;
+  border-radius:14px;padding:6px 10px 5px;
+  box-shadow:3px 3px 0 #0f172a;
+  font-family:"Comic Sans MS","Trebuchet MS",sans-serif;
+  font-size:clamp(.58rem,1.2vw,.75rem);font-weight:bold;color:#0f172a;
+  max-width:160px;min-width:80px;text-align:center;
+  pointer-events:none;line-height:1.35;position:relative;
+  margin-bottom:4px;
+  opacity:0;transform:translateY(-6px) scale(.88);
+  transition:opacity .38s,transform .38s cubic-bezier(.34,1.56,.64,1);
+}
+#fixed-bubble::after{content:"";position:absolute;bottom:-13px;left:50%;transform:translateX(-50%);border-left:9px solid transparent;border-right:9px solid transparent;border-top:13px solid #0f172a;}
+#fixed-bubble::before{content:"";position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);border-left:7px solid transparent;border-right:7px solid transparent;border-top:10px solid var(--bc);z-index:1;}
+#fixed-bubble.show{opacity:1;transform:translateY(0) scale(1);}
+#fixed-robot-name{
+  font-family:'Fredoka One',cursive;
+  font-size:clamp(.6rem,1.3vw,.72rem);
+  color:#ffd35a;
+  text-shadow:0 1px 6px rgba(0,0,0,.8);
+  text-align:center;line-height:1.2;
+}
+
+/* ══ WIN ══ */
+#winOverlay{position:fixed;inset:0;z-index:700;display:none;align-items:center;justify-content:center;background:rgba(4,12,8,.88);padding:1rem;overflow-y:auto;}
+#winOverlay.active{display:flex;}
+.win-card{width:min(460px,94vw);background:linear-gradient(135deg,#0b2418,#123a2a);border-radius:16px;box-shadow:0 0 0 3px #d62839,0 0 0 5px #ffd35a,8px 8px 0 #04100a,0 0 60px rgba(214,40,57,.25);padding:clamp(16px,3vw,28px) clamp(14px,3vw,24px);text-align:center;animation:cardPop .4s cubic-bezier(.34,1.56,.64,1) both;}
+.win-trophy{font-size:clamp(44px,10vw,60px);animation:bounce .8s ease-in-out infinite alternate;display:block;margin-bottom:6px;}
+@keyframes bounce{from{transform:translateY(0)}to{transform:translateY(-10px)}}
+.win-title{font-family:'Fredoka One',cursive;font-size:clamp(1.4rem,4.5vw,1.9rem);color:#ffd35a;text-shadow:0 0 24px rgba(255,211,90,.5);margin-bottom:4px;}
+.win-name-txt{font-size:14px;color:#d8ecd9;font-style:italic;margin-bottom:12px;}
+.win-stat{font-size:13px;color:#f3fbf1;background:rgba(214,40,57,.14);border:1px solid rgba(255,211,90,.18);border-radius:6px;padding:7px 12px;font-weight:800;margin-bottom:8px;}
+.win-medal{font-size:15px;font-weight:900;color:#ffd35a;background:rgba(255,211,90,.12);border:1px solid rgba(255,211,90,.18);border-radius:6px;padding:8px 12px;margin-bottom:14px;}
+
+/* ══ CONFETTI ══ */
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:5000;overflow:hidden}
+#confetti.hidden{display:none!important}
+#confetti span{position:absolute;top:-10vh;animation:confettiFall linear forwards;}
+@keyframes confettiFall{0%{transform:translateY(-10vh) rotate(0);opacity:1}100%{transform:translateY(120vh) rotate(540deg);opacity:.9}}
+
+/* ══ DICA EDUCATIVA (toast) ══ */
+.tip-toast{
+  position:fixed;
+  left:50%;bottom:clamp(1.2rem,10vh,6rem);
+  transform:translateX(-50%) translateY(20px);
+  width:min(420px,90vw);
+  background:linear-gradient(135deg,#fffaf0,#fde6d6);
+  border:3px solid #0f172a;outline:2px solid #1e293b;outline-offset:-4px;
+  border-radius:16px;
+  box-shadow:5px 5px 0 #0f172a,0 0 30px rgba(255,211,90,.3);
+  padding:12px 16px;
+  font-family:"Comic Sans MS","Trebuchet MS",sans-serif;
+  font-weight:bold;color:#0e2a1f;
+  font-size:clamp(.78rem,2.2vw,.92rem);
+  line-height:1.4;text-align:center;
+  z-index:640;
+  opacity:0;pointer-events:none;
+  transition:opacity .35s,transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.tip-toast::before{
+  content:'📚 Sabias que...';
+  display:block;
+  font-family:'Fredoka One',cursive;
+  font-size:.72rem;color:#d62839;
+  margin-bottom:4px;letter-spacing:.3px;
+}
+.tip-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+@media(max-width:700px){
+  .tip-toast{bottom:5.2rem;padding:9px 12px;}
+}
+
+/* ══ RESUMO DE DICAS NO ECRÃ DE VITÓRIA ══ */
+.win-tips{
+  text-align:left;
+  background:rgba(255,211,90,.08);
+  border:1px solid rgba(255,211,90,.25);
+  border-radius:10px;
+  padding:10px 12px;
+  margin-bottom:14px;
+  max-height:180px;overflow-y:auto;
+}
+.win-tips-title{
+  font-family:'Fredoka One',cursive;
+  font-size:.85rem;color:#ffd35a;
+  text-align:center;margin-bottom:8px;
+}
+.win-tip-item{
+  font-size:.78rem;color:#f3fbf1;
+  padding:5px 0;
+  border-bottom:1px dashed rgba(255,211,90,.2);
+  line-height:1.4;
+}
+.win-tip-item:last-child{border-bottom:none;}
+
+/* ══ MOBILE ≤700px: grelha em cima, sidebar em baixo ══ */
+@media(max-width:700px){
+  .game-layout{
+    flex-direction:column;
+    align-items:center;
+    max-width:100%;
+  }
+  #cw-wrap{width:100%;}
+  .sidebar{
+    width:100%;max-width:100%;min-width:0;
+    flex-direction:column;
+    position:static;
+    max-height:none;
+    overflow-y:visible;
+    padding:.4rem .4rem;
+    gap:6px;
+  }
+  /* clues side by side */
+  .clues-panel{flex-direction:row;gap:6px;}
+  .clues-section{flex:1;min-width:0;max-height:150px;overflow-y:auto;}
+  /* robot below clues, always column (bubble on top, robot below) */
+  .robot-wrap{
+    flex-direction:column; /* bubble top, robot bottom — unchanged */
+    width:100%;
+    border-top:1px solid rgba(214,40,57,.2);
+    padding-top:6px;
+    align-items:center;
+  }
+  .bubble{max-width:240px;}
+  .clue-item{font-size:clamp(.58rem,2.4vw,.7rem);}
+  .btn-sm{padding:3px 8px!important;font-size:.68rem!important;}
+  .timer-box{font-size:.68rem;padding:3px 7px;}
+  .level-bar-game .lvl-btn{padding:.25rem .5rem;font-size:.7rem;}
+  #gameScreen{padding-bottom:max(3.5rem,calc(3.5rem + env(safe-area-inset-bottom)));}
+}
+@media(max-width:380px){
+  .clues-panel{flex-direction:column;}
+  .clues-section{max-height:120px;}
+}
+@media(max-width:320px){
+  .bubble{display:none;}
+  .level-bar .lvl-btn,.level-bar-game .lvl-btn{padding:.22rem .4rem;font-size:.66rem;}
+}
+/* Landscape phone */
+@media(max-height:500px) and (orientation:landscape){
+  #gameScreen{padding-top:.2rem;padding-bottom:2rem;}
+  .game-layout{flex-direction:row;align-items:flex-start;max-width:100%;}
+  #cw-wrap{flex:1;}
+  .sidebar{
+    width:clamp(150px,26vw,210px);
+    flex-direction:column;
+    position:static;
+    max-height:calc(100dvh - 60px);
+    overflow-y:auto;
+  }
+  .clues-panel{flex-direction:column;}
+  .clues-section{max-height:none;}
+}
+
+/* ══ FULLSCREEN BUTTON ══ */
+#btn-fullscreen{
+  background:rgba(214,40,57,.08);
+  border:2px solid rgba(255,211,90,.35);
+  border-radius:8px;
+  color:#ffd35a;
+  cursor:pointer;
+  width:30px;height:30px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;
+  padding:0;
+  flex-shrink:0;
+  transition:background .15s,border-color .15s,transform .1s;
+  line-height:1;
+}
+#btn-fullscreen:hover{background:rgba(214,40,57,.2);border-color:#ffd35a;transform:scale(1.08);}
+#btn-fullscreen:active{transform:scale(.95);}
+
+/* ══ FULLSCREEN MODE TWEAKS ══ */
+:fullscreen body,:-webkit-full-screen body,:-moz-full-screen body{background:#0e2a1f;}
+
+/* ══ BETTER PC RESPONSIVE ══ */
+@media(min-width:701px) and (max-width:900px){
+  .sidebar{min-width:140px;max-width:190px;}
+  .clue-item{font-size:.65rem;}
+  .game-layout{gap:8px;}
+}
+@media(min-width:1200px){
+  #gameScreen{padding-left:1.5rem;padding-right:1.5rem;}
+  .sidebar{min-width:210px;max-width:280px;}
+  .clue-item{font-size:.75rem;}
+}
+@media(min-width:1600px){
+  .sidebar{min-width:240px;max-width:300px;}
+  .clue-item{font-size:.8rem;}
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   PC RESPONSIVE SCALE SYSTEM — reference 1920×1080
+   This stage is now gated by the JS-controlled "desktop-stage" class on
+   <html> instead of a plain width media query. A real smartphone turned
+   sideways is often wider than 700px, so a width-only check used to
+   misclassify it as "desktop" and squeeze the whole game into a tiny
+   letterboxed rectangle. JS (see the applyScale script below) decides
+   "desktop-stage" using touch/screen-size detection, so phones — in any
+   orientation — stay in the normal, full-screen responsive layout, and
+   only real desktops/large screens get the fixed 1920×1080 scaled stage.
+   ════════════════════════════════════════════════════════════════════ */
+#scale-wrap{width:100%;}
+
+html.desktop-stage,html.desktop-stage body{
+  width:100vw;height:100vh;height:100dvh;
+  overflow:hidden;
+  margin:0;
+}
+html.desktop-stage body{
+  /* Letterbox background fills any leftover space around scaled stage */
+  background:#050f0a;
+}
+html.desktop-stage #scale-wrap{
+  position:absolute;
+  top:0;left:0;
+  width:1920px;
+  height:1080px;
+  transform-origin:top left;
+  transform:scale(1);
+  will-change:transform;
+}
+/* Inside scaled stage, screens must fill the 1080px height,
+   NOT the actual viewport (which can be smaller). */
+html.desktop-stage #scale-wrap .screen{
+  min-height:1080px!important;
+  max-height:1080px;
+  height:1080px;
+}
+html.desktop-stage #scale-wrap #gameScreen{
+  overflow-y:auto;
+}
+/* Win overlay & confetti must cover only the stage, not the raw viewport */
+html.desktop-stage #scale-wrap #winOverlay{
+  position:absolute;
+  inset:0;
+}
+html.desktop-stage #scale-wrap #confetti{
+  position:absolute;
+  inset:0;
+}
+/* Fixed robot & prof tag are positioned relative to the stage
+   (transform on ancestor establishes containing block for fixed). */
+
+/* ── PHONE IN LANDSCAPE: make sure the game truly fills the screen ──
+   Wins over the generic ">700px" sidebar tweaks further up because it
+   is declared later in the stylesheet (same specificity). */
+@media(max-height:520px) and (orientation:landscape){
+  html:not(.desktop-stage) #gameScreen{
+    padding-top:.2rem;padding-bottom:.2rem;
+    height:100vh;height:100dvh;
+    overflow-y:auto;
+  }
+  html:not(.desktop-stage) .game-layout{
+    flex-direction:row;
+    align-items:stretch;
+    max-width:100%;
+    height:auto;
+  }
+  html:not(.desktop-stage) #cw-wrap{
+    flex:1 1 auto;
+    align-items:flex-start;
+  }
+  html:not(.desktop-stage) .sidebar{
+    width:clamp(150px,26vw,210px);
+    max-width:210px;
+    flex:0 0 auto;
+    flex-direction:column;
+    position:static;
+    max-height:100%;
+    overflow-y:auto;
+  }
+  html:not(.desktop-stage) .clues-panel{flex-direction:column;}
+  html:not(.desktop-stage) .clues-section{max-height:none;}
+}
+
+/* ═══ NEVE ═══ */
+#snow{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:3}
+#snow span{position:absolute;top:-8vh;color:#fff;opacity:.55;animation:snowFall linear infinite;will-change:transform}
+@keyframes snowFall{0%{transform:translate(0,-8vh) rotate(0)}50%{transform:translate(24px,55vh) rotate(180deg)}100%{transform:translate(-12px,112vh) rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){#snow{display:none}}
+html.desktop-stage #scale-wrap #snow{height:1080px}
+
+/* ═══ ROBÔ A CELEBRAR (ecrã final) ═══ */
+.win-robot{width:clamp(76px,16vw,108px);height:auto;display:block;margin:0 auto 6px;animation:vbWinBounce .8s ease-in-out infinite alternate;filter:drop-shadow(0 0 12px #7dd3fc)}
+@keyframes vbWinBounce{from{transform:translateY(0)}to{transform:translateY(-10px)}}
+</style>
+</head>
+<body lang="pt-PT">
+<div id="scale-wrap">
+<div id="snow" aria-hidden="true"></div>
+
+<!-- PROFESSORA TAG -->
+<div id="prof-tag">© Prof.ª Vanda Várzea</div>
+
+<!-- ECRÃ INICIAL -->
+<div id="startScreen" class="screen active">
+  <div class="modal-card">
+    <div class="modal-title">🎄 Palavras Cruzadas<br>de Natal</div>
+    <div class="name-row">
+      <label for="playerName">O teu nome:</label>
+      <input type="text" id="playerName" maxlength="22" placeholder="Escreve o teu nome…" autocomplete="off" lang="pt-PT" spellcheck="true" inputmode="text">
+    </div>
+    <div class="level-bar">
+      <button class="lvl-btn easy active" data-level="easy">⭐ Fácil</button>
+      <button class="lvl-btn medium" data-level="medium">⭐⭐ Médio</button>
+      <button class="lvl-btn hard" data-level="hard">⭐⭐⭐ Difícil</button>
+    </div>
+    <p class="lvl-desc" id="startLvlDesc">Grelha 6×7 · 5 palavras</p>
+    <div class="row">
+      <button id="btnStart" class="btn primary">▶ Começar a jogar!</button>
+    </div>
+    <p class="tiny">Clica numa pista · escreve letra a letra · as palavras cruzam-se!</p>
+  </div>
+</div>
+
+<!-- JOGO -->
+<div id="gameScreen" class="screen">
+  <div class="game-top">
+    <div class="level-bar level-bar-game">
+      <button class="lvl-btn easy" data-level="easy">⭐ Fácil</button>
+      <button class="lvl-btn medium" data-level="medium">⭐⭐ Médio</button>
+      <button class="lvl-btn hard" data-level="hard">⭐⭐⭐ Difícil</button>
+    </div>
+    <div id="score-inline" style="font-family:&#39;Baloo 2&#39;,sans-serif;font-size:.82rem;font-weight:900;color:#d8ecd9;"></div>
+    <div class="header-actions">
+      <div class="timer-box" id="timer-box" title="Tempo de jogo">⏱️ <span id="timer-display">00:00</span></div>
+      <button class="btn btn-sm" id="btn-hint">💡 Dica (<span id="hints-left">3</span>)</button>
+      <button class="btn btn-sm" id="btn-check">✅ Verificar</button>
+      <button class="btn btn-sm primary" id="btn-restart">↺ Novo Jogo</button>
+      <button class="btn btn-sm" id="btn-menu">🏠 Menu</button>
+      <button id="btn-fullscreen" title="Ecrã inteiro">⛶</button>
+    </div>
+  </div>
+  <p class="tiny" id="recordDisplay" style="width:100%;max-width:1100px;margin:0 auto .2rem;"></p>
+  <div id="msg" role="status" aria-live="polite"></div>
+  <div id="tipToast" class="tip-toast" role="status" aria-live="polite"></div>
+  <div class="game-layout">
+    <div id="cw-wrap"><div id="cw-grid"></div></div>
+    <div class="sidebar">
+      <div class="clues-panel">
+        <div class="clues-section">
+          <div class="clues-title">➡️ Horizontais</div>
+          <div id="clues-across"></div>
+        </div>
+        <div class="clues-section">
+          <div class="clues-title">⬇️ Verticais</div>
+          <div id="clues-down"></div>
+        </div>
+      </div>
+
+    </div><!-- end .sidebar -->
+  </div><!-- end .game-layout -->
+</div><!-- end #gameScreen -->
+
+<!-- WIN -->
+<div id="winOverlay">
+  <div class="win-card">
+    <canvas id="win-robot" class="win-robot" width="96" height="96" aria-hidden="true"></canvas>
+    <div class="win-title">Feliz Natal!</div>
+    <p class="win-name-txt">Parabéns, <strong id="winName" style="color:#ffd35a;font-style:normal">Amigo</strong>! Ajudaste o Pai Natal a completar tudo!</p>
+    <div class="win-stat">✏️ Palavras: <strong id="winFound">0</strong></div>
+    <div class="win-stat">⏱️ Tempo: <strong id="winTime">—</strong></div>
+    <div class="win-medal" id="winMedal">🥇 Excelente!</div>
+    <div class="win-tips" id="winTips" style="display:none">
+      <div class="win-tips-title">📚 O que aprendeste hoje:</div>
+      <div id="winTipsList"></div>
+    </div>
+    <div class="row">
+      <button id="btnWinRestart" class="btn primary">🔄 Jogar de novo</button>
+      <button id="btnWinMenu" class="btn">🏠 Menu</button>
+    </div>
+  </div>
+</div>
+
+<!-- ROBOT FLUTUANTE FIXO -->
+<div id="fixed-robot-wrap">
+  <div id="fixed-bubble" role="status" aria-live="polite" class="">Descobre as palavras do Natal! ✏️🎄</div>
+  <canvas id="fixed-vb-robot" width="96" height="96" role="button" tabindex="0" aria-label="VanBerto's — clica para falar"></canvas>
+  <div id="fixed-robot-name">👤 Amigo</div>
+</div>
+
+<div id="confetti" class="hidden"></div>
+
+</div><!-- end #scale-wrap -->
+
+<script>
+'use strict';
+
+/* ════════════════════════════════════════════════════════════════════
+   PC RESPONSIVE SCALE SYSTEM
+   Reference resolution: 1920 × 1080
+   Scale factor: Math.min(window.innerWidth / 1920, window.innerHeight / 1080)
+   - Applied ONLY on desktop (window.innerWidth > 700).
+   - Mobile/tablet small (≤700px) keep original responsive layout intact.
+   - Re-computes on every window resize event.
+   - Centers the scaled stage with letterbox.
+   ════════════════════════════════════════════════════════════════════ */
+(function(){
+  const MOBILE_BP = 700;
+  const REF_W = 1920;
+  const REF_H = 1080;
+  // Longest physical screen side (doesn't change when the phone rotates,
+  // since screen.width/height swap together) above which we assume a
+  // "real" tablet/desktop rather than a phone.
+  const PHONE_MAX_LONG_SIDE = 960;
+
+  function isPhoneDevice(){
+    const touch = ('ontouchstart' in window) || (navigator.maxTouchPoints||0) > 0;
+    if(!touch) return false;
+    const longSide = Math.max(window.screen.width||0, window.screen.height||0);
+    return longSide > 0 && longSide <= PHONE_MAX_LONG_SIDE;
+  }
+
+  // Desktop stage only for non-phone devices with a wide-enough viewport.
+  // A phone turned sideways can easily be wider than 700px, but it must
+  // still get the normal full-screen mobile layout, not the tiny scaled
+  // 1920×1080 stage meant for real desktop/laptop screens.
+  function shouldUseDesktopStage(){
+    return !isPhoneDevice() && window.innerWidth > MOBILE_BP;
+  }
+
+  function applyScale(){
+    const wrap = document.getElementById('scale-wrap');
+    if(!wrap) return;
+    const iw = window.innerWidth;
+    const ih = window.innerHeight;
+    const desktop = shouldUseDesktopStage();
+    document.documentElement.classList.toggle('desktop-stage', desktop);
+
+    // Mobile/phone: leave behaviour untouched, clear any inline scale.
+    if(!desktop){
+      wrap.style.transform = '';
+      wrap.style.transformOrigin = '';
+      document.documentElement.style.setProperty('--game-scale', 1);
+      return;
+    }
+
+    // Desktop / PC: uniform scale to fit reference 1920×1080 inside the window.
+    const scale = Math.min(iw / REF_W, ih / REF_H);
+    // Center the scaled stage (letterbox).
+    const offsetX = Math.max(0, (iw - REF_W * scale) / 2);
+    const offsetY = Math.max(0, (ih - REF_H * scale) / 2);
+    wrap.style.transformOrigin = 'top left';
+    wrap.style.transform =
+      'translate(' + offsetX + 'px,' + offsetY + 'px) scale(' + scale + ')';
+    document.documentElement.style.setProperty('--game-scale', scale);
+  }
+
+  // Recompute on resize (and orientation change) — debounced via rAF.
+  let rafId = null;
+  function onResize(){
+    if(rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(applyScale);
+  }
+  window.addEventListener('resize', onResize);
+  window.addEventListener('orientationchange', onResize);
+
+  // Initial application — run as soon as possible and again after fonts/layout settle.
+  applyScale();
+  window.addEventListener('load', applyScale);
+  document.addEventListener('DOMContentLoaded', applyScale);
+
+  window.isPhoneDevice = isPhoneDevice;
+})();
+
+/* Shared helper: are we in the normal full-screen "mobile" flow
+   (phones in any orientation, and narrow desktop browser windows),
+   as opposed to the scaled 1920×1080 desktop stage? */
+function isMobileFlow(){
+  return !document.documentElement.classList.contains('desktop-stage');
+}
+
+/* ══ SONS ══ */
+let audioCtx=null;
+function getAC(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
+function playWordFound(){
+  try{
+    const ac=getAC();
+    [[523.25,0],[659.25,.08],[783.99,.16]].forEach(([freq,delay])=>{
+      const o=ac.createOscillator(),g=ac.createGain();
+      o.connect(g);g.connect(ac.destination);
+      o.type='sine';o.frequency.value=freq;
+      const t=ac.currentTime+delay;
+      g.gain.setValueAtTime(0,t);
+      g.gain.linearRampToValueAtTime(.28,t+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+.32);
+      o.start(t);o.stop(t+.35);
+    });
+  }catch(e){}
+}
+function playWin(){
+  try{
+    const ac=getAC();
+    [[523.25,0,.18],[659.25,.18,.18],[783.99,.36,.18],[1046.5,.54,.35]].forEach(([freq,delay,dur])=>{
+      const o=ac.createOscillator(),g=ac.createGain();
+      o.connect(g);g.connect(ac.destination);
+      o.type='triangle';o.frequency.value=freq;
+      const t=ac.currentTime+delay;
+      g.gain.setValueAtTime(0,t);
+      g.gain.linearRampToValueAtTime(.32,t+.03);
+      g.gain.exponentialRampToValueAtTime(.001,t+dur);
+      o.start(t);o.stop(t+dur+.05);
+    });
+  }catch(e){}
+}
+
+/* ══ DICAS EDUCATIVAS DE CIBERSEGURANÇA ══ */
+const TIPS = {
+  "NATAL":"🎄 O Natal celebra-se a 25 de dezembro e é um tempo de partilha, família e amizade.",
+  "NEVE":"❄️ Cada floco de neve tem uma forma única — não há dois iguais!",
+  "SINO":"🔔 Os sinos tocam no Natal para anunciar a alegria e chamar todos para a festa.",
+  "RENA":"🦌 As renas puxam o trenó do Pai Natal e, segundo a lenda, conseguem voar!",
+  "PRENDA":"🎁 Em Portugal, as prendas costumam ser abertas à meia-noite de 24 para 25 de dezembro, ou na manhã de Natal.",
+  "PRESÉPIO":"⛪ O primeiro presépio foi feito por São Francisco de Assis, em 1223, em Greccio.",
+  "CONSOADA":"🍽️ A consoada é a ceia de Natal em família, na noite de 24 de dezembro.",
+  "BACALHAU":"🐟 O bacalhau cozido com batatas e couves é o prato mais típico da consoada portuguesa.",
+  "BOLOREI":"🎂 O bolo-rei tem uma fava escondida: quem a encontrar paga o bolo-rei do ano seguinte!",
+  "ÁRVORE":"🌲 A tradição da árvore de Natal veio da Alemanha, há mais de 500 anos.",
+  "TRENÓ":"🛷 O trenó do Pai Natal é puxado por renas e viaja pelo mundo inteiro numa só noite.",
+  "DUENDE":"🧝 Os duendes são os ajudantes do Pai Natal e fabricam os brinquedos na oficina.",
+  "MISSADOGALO":"⛪ A Missa do Galo celebra-se à meia-noite de 24 de dezembro, para receber o Natal.",
+  "RABANADAS":"🍞 As rabanadas são feitas com pão embebido em leite, fritas e polvilhadas com açúcar e canela.",
+  "GUIRLANDA":"🌿 A guirlanda na porta é um símbolo de boas-vindas e de amizade durante o Natal.",
+  "FELICIDADE":"😊 A verdadeira felicidade do Natal está em dar e partilhar com os outros.",
+  "ALEGRIA":"🎅 O Pai Natal espalha alegria — e tu também podes fazer um amigo sorrir hoje!",
+  "SURPRESA":"🎉 Uma surpresa feita com carinho vale mais do que qualquer prenda cara.",
+  "LAREIRA":"🔥 Na noite de Natal, a lareira aquece a família e, dizem, é por lá que o Pai Natal entra."
+};
+let tipsAprendidas = [];
+let tipT = null;
+function showTip(word) {
+  const tip = TIPS[word];
+  if (!tip) return;
+  if (!tipsAprendidas.includes(tip)) tipsAprendidas.push(tip);
+  const el = document.getElementById('tipToast');
+  if (!el) return;
+  el.textContent = tip;
+  clearTimeout(tipT);
+  // pequeno atraso para não competir com a mensagem "✅ palavra!"
+  setTimeout(() => {
+    el.classList.add('show');
+    tipT = setTimeout(() => el.classList.remove('show'), 4200);
+  }, 500);
+}
+
+/* ══════════════════════════════════════
+   NÍVEIS — cada grelha foi verificada à mão para não ter conflitos
+   ══════════════════════════════════════ */
+const LEVELS = {
+  easy: {
+    rows: 6, cols: 7, hints: 3,
+    label: 'Grelha 6×7 · 5 palavras',
+    medalTimes: [45, 120],
+    words: [
+      { n:1, w:"SINO", r:0, c:3, d:"across", clue:"Toca \"din-don\" e anuncia a chegada do Natal 🔔" },
+      { n:2, w:"NATAL", r:0, c:5, d:"down", clue:"Festa de 25 de dezembro, em que celebramos em família 🎄" },
+      { n:3, w:"NEVE", r:2, c:2, d:"down", clue:"Pequenos flocos brancos que caem do céu no inverno ❄️" },
+      { n:4, w:"PRENDA", r:3, c:0, d:"across", clue:"Vem embrulhada em papel colorido e fica debaixo da árvore 🎁" },
+      { n:5, w:"RENA", r:5, c:1, d:"across", clue:"Animal que puxa o trenó do Pai Natal 🦌" }
+    ]
+  },
+  medium: {
+    rows: 8, cols: 12, hints: 4,
+    label: 'Grelha 8×12 · 7 palavras',
+    medalTimes: [75, 180],
+    words: [
+      { n:1, w:"BACALHAU", r:0, c:0, d:"across", clue:"Peixe típico da consoada portuguesa, cozido com batatas e couves 🐟" },
+      { n:1, w:"BOLOREI", r:0, c:0, d:"down", clue:"Bolo de Natal com frutas e uma fava escondida (escreve sem hífen) 🎂" },
+      { n:2, w:"CONSOADA", r:0, c:2, d:"down", clue:"Ceia de Natal em família, na noite de 24 de dezembro 🍽️" },
+      { n:3, w:"ÁRVORE", r:1, c:11, d:"down", clue:"Enfeitamos esta planta verde com bolas e luzes 🎄" },
+      { n:4, w:"TRENÓ", r:3, c:5, d:"down", clue:"O Pai Natal viaja neste veículo puxado por renas 🛷" },
+      { n:5, w:"PRESÉPIO", r:4, c:4, d:"across", clue:"Cenário com o Menino Jesus, Maria, José e os pastores ⛪" },
+      { n:6, w:"DUENDE", r:6, c:2, d:"across", clue:"Ajudante do Pai Natal que fabrica brinquedos na oficina 🧝" }
+    ]
+  },
+  hard: {
+    rows: 12, cols: 14, hints: 5,
+    label: 'Grelha 12×14 · 10 palavras',
+    medalTimes: [90, 240],
+    words: [
+      { n:1, w:"SURPRESA", r:0, c:1, d:"down", clue:"Algo inesperado que recebemos com um grande sorriso 🎉" },
+      { n:2, w:"ALEGRIA", r:0, c:5, d:"down", clue:"O Pai Natal espalha muita ___ por todo o mundo 🎅" },
+      { n:3, w:"TRENÓ", r:1, c:11, d:"down", clue:"O Pai Natal viaja neste veículo puxado por renas 🛷" },
+      { n:4, w:"MISSADOGALO", r:1, c:13, d:"down", clue:"Celebração da meia-noite de 24 de dezembro (escreve sem espaços) ⛪" },
+      { n:5, w:"BOLOREI", r:2, c:7, d:"across", clue:"Bolo de Natal com frutas e uma fava escondida (escreve sem hífen) 🎂" },
+      { n:6, w:"LAREIRA", r:2, c:9, d:"down", clue:"Sítio da casa onde se acende lume para aquecer no inverno 🔥" },
+      { n:7, w:"GUIRLANDA", r:3, c:3, d:"down", clue:"Enfeite de ramos e fitas que se pendura na porta 🌿" },
+      { n:8, w:"FELICIDADE", r:5, c:0, d:"across", clue:"É o que sentimos quando damos e partilhamos com os outros 😊" },
+      { n:9, w:"RABANADAS", r:8, c:2, d:"across", clue:"Fatias de pão fritas, passadas por açúcar e canela 🍞" },
+      { n:10, w:"BACALHAU", r:11, c:0, d:"across", clue:"Peixe típico da consoada portuguesa, cozido com batatas e couves 🐟" }
+    ]
+  }
+};
+
+let lvl = 'easy', startSel = 'easy';
+let WORDS = [], CLUE_WORDS = [], MIN_COL = 0, ROWS = 0, COLS = 0;
+function applyLevel(level) {
+  const L = LEVELS[level];
+  WORDS = L.words;
+  ROWS = L.rows; COLS = L.cols; MIN_COL = 0;
+  // deduplicate by (r,c,dir) for numbering
+  CLUE_WORDS = WORDS.filter((w,i,arr)=>
+    arr.findIndex(x=>x.r===w.r&&x.c===w.c&&x.d===w.d)===i
+  );
+}
+applyLevel(lvl);
+
+/* ══ BUILD LETTER MAP ══ */
+function buildLetterMap() {
+  const map = {}; // "r,c" -> letter
+  WORDS.forEach(({w,r,c,d}) => {
+    for (let i=0;i<w.length;i++) {
+      const rr = d==='down'? r+i : r;
+      const cc = d==='across'? c+i : c;
+      map[`${rr},${cc}`] = w[i];
+    }
+  });
+  return map;
+}
+
+/* ══ STATE ══ */
+let playerName = 'Amigo do Natal';
+let letterMap = {};
+let userMap = {};    // "r,c" -> letter typed
+let solved = new Set(); // word keys "n-d"
+let activeWord = null;
+let hintsLeft = 5;
+/* dicas limitadas por sessão (não por partida): "Novo Jogo" não volta a dar dicas */
+const hintsSession = {};
+
+/* ══ CRONÓMETRO E RECORDE (por nível) ══ */
+let timerInterval = null, timerSeconds = 0;
+function fmtTime(sec){
+  const m=Math.floor(sec/60), s=sec%60;
+  return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+function startTimer(){
+  stopTimer();
+  timerSeconds = 0;
+  const disp = document.getElementById('timer-display');
+  if (disp) disp.textContent = fmtTime(0);
+  const tbox = document.getElementById('timer-box');
+  tbox && tbox.classList.remove('record-warn');
+  timerInterval = setInterval(()=>{
+    timerSeconds++;
+    if (disp) disp.textContent = fmtTime(timerSeconds);
+    updateLiveRecordHint();
+  }, 1000);
+}
+function stopTimer(){ if (timerInterval) { clearInterval(timerInterval); timerInterval = null; } }
+function recordKey(level){ return 'vb_cw_natal_record_'+level; }
+function getRecord(level){
+  try { const v = localStorage.getItem(recordKey(level)); return v ? parseInt(v,10) : null; } catch(e){ return null; }
+}
+function setRecord(level, sec){ try { localStorage.setItem(recordKey(level), String(sec)); } catch(e){} }
+function updateRecordDisplay(){
+  const el = document.getElementById('recordDisplay');
+  if (!el) return;
+  const rec = getRecord(lvl);
+  el.textContent = rec != null ? ('🏆 O teu recorde neste nível: '+fmtTime(rec)) : '🏆 Ainda sem recorde neste nível — sê o primeiro!';
+}
+/* enquanto se joga, mostra quanto falta para bater o recorde */
+function updateLiveRecordHint(){
+  const el = document.getElementById('recordDisplay');
+  if (!el) return;
+  const rec = getRecord(lvl), tbox = document.getElementById('timer-box');
+  if (rec == null) return;
+  const remaining = rec - timerSeconds;
+  if (remaining > 0) {
+    el.textContent = '🏆 Faltam '+fmtTime(remaining)+' para bateres o teu recorde!';
+    tbox && tbox.classList.remove('record-warn');
+  } else {
+    el.textContent = '⏳ Já passaste o teu tempo recorde ('+fmtTime(rec)+') — força, ainda dá para terminar!';
+    tbox && tbox.classList.add('record-warn');
+  }
+}
+
+function wordKey(wobj) { return wobj.n+'-'+wobj.d; }
+
+/* ══ RENDER GRID ══ */
+function buildGrid() {
+  applyLevel(lvl);
+  letterMap = buildLetterMap();
+  userMap = {};
+  solved.clear();
+  activeWord = null;
+  if (!(lvl in hintsSession)) hintsSession[lvl] = LEVELS[lvl].hints;
+  hintsLeft = hintsSession[lvl];
+  tipsAprendidas = [];
+  const tt = document.getElementById('tipToast'); if (tt) tt.classList.remove('show');
+  document.getElementById('hints-left').textContent = hintsLeft;
+  document.getElementById('msg').textContent = '';
+  updateRecordDisplay();
+  startTimer();
+  // Double rAF — wait for layout to settle before measuring
+  requestAnimationFrame(()=>requestAnimationFrame(()=>_renderGrid()));
+}
+
+function _renderGrid() {
+  const el = document.getElementById('cw-grid');
+  el.innerHTML = '';
+  el.setAttribute('role','grid');
+  el.setAttribute('aria-label','Grelha de palavras cruzadas. Usa Tab para navegar entre as casas e as setas do teclado para te mover dentro de uma palavra.');
+
+  const isMobile = isMobileFlow();
+  const wrap = document.getElementById('cw-wrap');
+  // Use offsetWidth (unaffected by ancestor CSS transform) so the
+  // PC scale wrapper does not distort cell-size calculations.
+  let avail = wrap.offsetWidth || wrap.getBoundingClientRect().width;
+
+  // If measurement not yet ready, estimate from window width
+  if (avail < 40) {
+    if (isMobile) {
+      avail = window.innerWidth - 16;
+    } else {
+      // desktop: subtract sidebar + gap + padding, adjusted by screen width
+      const sidebarW = window.innerWidth <= 900 ? 200 : window.innerWidth <= 1200 ? 240 : 290;
+      avail = Math.min(window.innerWidth - sidebarW - 40, 820);
+    }
+  }
+  avail = Math.min(avail, 820);
+  // On phones (any orientation) also cap by the available viewport height,
+  // so the grid always fits on screen instead of forcing a scroll — this
+  // matters most in landscape, where height is the tight dimension.
+  if (isMobile) {
+    const top = wrap.getBoundingClientRect().top;
+    const bottomBreathing = 10;
+    const availH = window.innerHeight - top - bottomBreathing;
+    if (availH > 60) avail = Math.min(avail, availH);
+  }
+
+  const gap = isMobile ? 1 : 2;
+  const pad = isMobile ? 6 : 10;
+  const cs = Math.max(isMobile ? 16 : 24, Math.floor((avail - pad*2 - (COLS-1)*gap) / COLS));
+  const fs = cs<=18?'0.5rem':cs<=23?'0.62rem':cs<=29?'0.76rem':'0.9rem';
+
+  el.style.gridTemplateColumns = `repeat(${COLS}, ${cs}px)`;
+  el.style.gap = gap+'px';
+
+  // number map: "r,c" -> sorted array of word nums starting there
+  const numMap = {};
+  WORDS.forEach(w => {
+    const key = `${w.r},${w.c}`;
+    if (!numMap[key]) numMap[key] = [];
+    if (!numMap[key].includes(w.n)) numMap[key].push(w.n);
+  });
+
+  for (let r=0; r<ROWS; r++) {
+    for (let dc=0; dc<COLS; dc++) {
+      const c = dc + MIN_COL;
+      const cell = document.createElement('div');
+      cell.className = 'cw-cell';
+      cell.style.width = cs+'px'; cell.style.height = cs+'px';
+      cell.dataset.r = r; cell.dataset.c = c;
+
+      const letter = letterMap[`${r},${c}`];
+      if (!letter) {
+        cell.classList.add('empty');
+        cell.setAttribute('aria-hidden','true');
+      } else {
+        cell.classList.add('letter');
+        cell.setAttribute('role','gridcell');
+        if (numMap[`${r},${c}`]) {
+          const num = document.createElement('span');
+          num.className = 'cw-num';
+          num.textContent = numMap[`${r},${c}`].sort((a,b)=>a-b).join('/');
+          cell.appendChild(num);
+        }
+        // descreve a que palavra(s) a casa pertence, sem nunca revelar a letra certa
+        const belongsTo = CLUE_WORDS.filter(w => {
+          for (let i=0;i<w.w.length;i++) {
+            const wr = w.d==='down'? w.r+i : w.r, wc = w.d==='across'? w.c+i : w.c;
+            if (wr===r && wc===c) return true;
+          }
+          return false;
+        }).map(w => (w.n+' '+(w.d==='across'?'horizontal':'vertical'))).join(', ');
+        const inp = document.createElement('input');
+        inp.className = 'cw-input';
+        inp.style.fontSize = fs;
+        inp.maxLength = 1;
+        inp.dataset.r = r; inp.dataset.c = c;
+        inp.autocomplete = 'off';
+        inp.setAttribute('inputmode','none');
+        inp.setAttribute('autocorrect','off');
+        inp.setAttribute('autocapitalize','characters');
+        inp.setAttribute('spellcheck','false');
+        inp.setAttribute('readonly','true');
+        inp.setAttribute('aria-label','Casa da palavra '+belongsTo);
+        inp.addEventListener('focus', () => activateMobileInput(r, c));
+        cell.appendChild(inp);
+        cell.addEventListener('pointerdown', (e) => { e.preventDefault(); e.stopPropagation(); activateMobileInput(r, c); });
+      }
+      el.appendChild(cell);
+    }
+  }
+  renderClues();
+  updateProgress();
+}
+
+function getCell(r,c) { return document.querySelector(`.cw-cell[data-r="${r}"][data-c="${c}"]`); }
+function getInput(r,c) { const cl=getCell(r,c); return cl?cl.querySelector('.cw-input'):null; }
+
+/* ══ MOBILE KEYBOARD ══ */
+// A hidden textarea that we use to capture keyboard input on mobile.
+// We route its events to the active cell's real input.
+let mobileR = null, mobileC = null;
+let mobileTA = null;
+let mobileReady = false; // flag: ignore phantom input events right after focus
+
+function getMobileTA() {
+  if (mobileTA) return mobileTA;
+  mobileTA = document.createElement('textarea');
+  mobileTA.setAttribute('inputmode','text');
+  mobileTA.setAttribute('autocorrect','off');
+  mobileTA.setAttribute('autocapitalize','characters');
+  mobileTA.setAttribute('spellcheck','false');
+  mobileTA.setAttribute('autocomplete','off');
+  mobileTA.style.cssText='position:fixed;opacity:0;pointer-events:none;width:1px;height:1px;top:-9999px;left:-9999px;font-size:16px;border:none;outline:none;z-index:9999;overflow:hidden;';
+  document.body.appendChild(mobileTA);
+
+  mobileTA.addEventListener('input', e => {
+    if (mobileR===null || !mobileReady) { mobileTA.value=''; return; }
+    const raw = mobileTA.value;
+    mobileTA.value = '';
+    const ch = raw.replace(/[^A-ZÁÀÂÃÉÊÍÓÔÕÚÜÇ]/gi,'').slice(-1).toUpperCase();
+    if (!ch) return;
+    const inp = getInput(mobileR, mobileC);
+    if (!inp || inp.disabled) return;
+    const expected = letterMap[`${mobileR},${mobileC}`] || '';
+    const corrected = normalizeMatch(ch, expected) ? expected : ch;
+    inp.value = corrected;
+    userMap[`${mobileR},${mobileC}`] = corrected;
+    if (!normalizeMatch(corrected, expected)) {
+      const cell = getCell(mobileR,mobileC);
+      if (cell) { cell.classList.add('wrong-flash'); setTimeout(()=>cell.classList.remove('wrong-flash'),400); }
+    }
+    moveNext(mobileR, mobileC);
+    checkWords();
+  });
+
+  mobileTA.addEventListener('keydown', e => {
+    if (mobileR===null) return;
+    if (e.key==='Backspace') {
+      e.preventDefault();
+      const inp = getInput(mobileR, mobileC);
+      if (inp && !inp.value) { movePrev(mobileR,mobileC); }
+      else if (inp) { inp.value=''; userMap[`${mobileR},${mobileC}`]=''; mobileTA.value=''; }
+    }
+    if (e.key==='Enter') { e.preventDefault(); checkWords(true); }
+    if (e.key==='ArrowRight') { e.preventDefault(); focusCell(mobileR,mobileC+1); }
+    if (e.key==='ArrowLeft')  { e.preventDefault(); focusCell(mobileR,mobileC-1); }
+    if (e.key==='ArrowDown')  { e.preventDefault(); focusCell(mobileR+1,mobileC); }
+    if (e.key==='ArrowUp')    { e.preventDefault(); focusCell(mobileR-1,mobileC); }
+  });
+
+  mobileTA.addEventListener('blur', () => {
+    mobileReady = false;
+  });
+
+  return mobileTA;
+}
+
+function activateMobileInput(r, c) {
+  const inp = getInput(r,c);
+  if (!inp) return;
+
+  // Find all words that pass through this cell
+  const candidates = CLUE_WORDS.filter(w => {
+    for (let i=0;i<w.w.length;i++) {
+      const wr = w.d==='down'? w.r+i : w.r;
+      const wc = w.d==='across'? w.c+i : w.c;
+      if (wr===r && wc===c) return true;
+    }
+    return false;
+  });
+
+  // Find words that START at this cell (not just pass through)
+  const startsHere = candidates.filter(w => w.r === r && w.c === c);
+
+  // Toggle direction if: same cell tapped again, OR two words start here (like 6/8)
+  const shouldToggle = (mobileR === r && mobileC === c) || (startsHere.length > 1 && activeWord && startsHere.includes(activeWord));
+  if (shouldToggle && activeWord && candidates.length > 1) {
+    const currentIdx = candidates.findIndex(w => w === activeWord);
+    if (currentIdx !== -1) {
+      const next = candidates[(currentIdx + 1) % candidates.length];
+      highlight(next);
+      setActiveCell(r, c);
+      mobileR = r; mobileC = c;
+      // still focus the textarea so keyboard stays open
+      const ta = getMobileTA();
+      ta.value = '';
+      requestAnimationFrame(() => { ta.focus(); setTimeout(() => { mobileReady = true; }, 120); });
+      return;
+    }
+  }
+
+  // Normal cell activation (skip if disabled and no toggle happened)
+  if (inp.disabled) {
+    if (candidates.length > 1) {
+      // Cell already solved via one crossing word, but another (unsolved) word
+      // also passes through here — let the tap switch to that other word instead
+      // of doing nothing, even if it doesn't "start" at this exact cell.
+      const currentIdx = candidates.findIndex(w => w === activeWord);
+      const next = candidates[(currentIdx + 1) % candidates.length];
+      for (let i=0;i<next.w.length;i++) {
+        const rr = next.d==='down'? next.r+i : next.r;
+        const cc = next.d==='across'? next.c+i : next.c;
+        const ninp = getInput(rr, cc);
+        if (ninp && !ninp.disabled) { activateMobileInput(rr, cc); return; }
+      }
+      // that word is also fully solved already — just highlight it
+      highlight(next);
+      setActiveCell(r, c);
+      mobileR = r; mobileC = c;
+      return;
+    }
+    // cell is correct but only one word — just highlight that word
+    highlight(candidates[0]);
+    setActiveCell(r, c);
+    mobileR = r; mobileC = c;
+    return;
+  }
+
+  mobileR = r; mobileC = c;
+  mobileReady = false;
+  onFocus(r, c);
+  const ta = getMobileTA();
+  ta.value = '';
+  requestAnimationFrame(() => {
+    ta.focus();
+    setTimeout(() => { mobileReady = true; }, 120);
+  });
+}
+/* ══ HIGHLIGHT ══ */
+function highlight(wobj) {
+  document.querySelectorAll('.cw-cell.letter').forEach(el=>el.classList.remove('active-word','active-cell'));
+  if (!wobj) return;
+  activeWord = wobj;
+  for (let i=0;i<wobj.w.length;i++) {
+    const r = wobj.d==='down'? wobj.r+i : wobj.r;
+    const c = wobj.d==='across'? wobj.c+i : wobj.c;
+    const el = getCell(r,c);
+    if (el) el.classList.add('active-word');
+  }
+  document.querySelectorAll('.clue-item').forEach(el=>el.classList.remove('active'));
+  const key = wordKey(wobj);
+  document.querySelectorAll(`.clue-item[data-key="${key}"]`).forEach(el=>{
+    el.classList.add('active');
+    el.scrollIntoView({behavior:'smooth',block:'nearest'});
+  });
+}
+
+function setActiveCell(r,c) {
+  document.querySelectorAll('.cw-cell.active-cell').forEach(el=>el.classList.remove('active-cell'));
+  const el = getCell(r,c);
+  if (el && !el.classList.contains('correct')) el.classList.add('active-cell');
+}
+
+function onFocus(r, c) {
+  mobileR = r; mobileC = c;
+  const candidates = CLUE_WORDS.filter(w => {
+    for (let i=0;i<w.w.length;i++) {
+      const wr = w.d==='down'? w.r+i : w.r;
+      const wc = w.d==='across'? w.c+i : w.c;
+      if (wr===r && wc===c) return true;
+    }
+    return false;
+  });
+  if (!candidates.length) return;
+  let chosen;
+  if (candidates.length === 1) {
+    chosen = candidates[0];
+  } else {
+    // Always keep active word if it passes through this cell — never auto-switch mid-typing
+    const keepCurrent = candidates.find(w => w === activeWord);
+    if (keepCurrent) {
+      chosen = keepCurrent;
+    } else {
+      // No active word passes through here — pick across first, then down
+      chosen = candidates.find(w => w.d==='across') || candidates[0];
+    }
+  }
+  highlight(chosen);
+  setActiveCell(r, c);
+}
+
+/* ══ ACCENT NORMALIZER ══ */
+const ACCENT_MAP = {
+  'A':'AÁÀÂÃ', 'E':'EÉÊÈ', 'I':'IÍÌ', 'O':'OÓÔÕÒ', 'U':'UÚÙÜ', 'C':'CÇ'
+};
+// normalize any letter to its base form
+function baseOf(ch) {
+  const c = ch.toUpperCase();
+  for (const [base, variants] of Object.entries(ACCENT_MAP)) {
+    if (variants.includes(c)) return base;
+  }
+  return c;
+}
+function normalizeMatch(typed, expected) {
+  if (!typed || !expected) return false;
+  // match if both reduce to the same base letter
+  return baseOf(typed) === baseOf(expected);
+}
+function moveNext(r,c) {
+  if (!activeWord) return;
+  // advance through cells of active word, skipping already-correct ones
+  const cells = activeWord.w.split('').map((_,i) => ({
+    r: activeWord.d==='down' ? activeWord.r+i : activeWord.r,
+    c: activeWord.d==='across' ? activeWord.c+i : activeWord.c
+  }));
+  const idx = cells.findIndex(cell => cell.r===r && cell.c===c);
+  if (idx === -1) return;
+  // find next non-disabled cell after current position
+  for (let i=idx+1; i<cells.length; i++) {
+    const inp = getInput(cells[i].r, cells[i].c);
+    if (inp && !inp.disabled) {
+      mobileR = -1; mobileC = -1; // reset so activateMobileInput doesn't treat next cell as "same cell click"
+      focusCell(cells[i].r, cells[i].c); return;
+    }
+  }
+  // all remaining cells done — stay put
+}
+function movePrev(r,c) {
+  if (!activeWord) return;
+  const pr = activeWord.d==='down' ? r-1 : r;
+  const pc = activeWord.d==='across' ? c-1 : c;
+  const inWord = activeWord.w.split('').some((_,i) => {
+    const wr = activeWord.d==='down' ? activeWord.r+i : activeWord.r;
+    const wc = activeWord.d==='across' ? activeWord.c+i : activeWord.c;
+    return wr===pr && wc===pc;
+  });
+  if (inWord) focusCell(pr, pc);
+}
+function focusCell(r,c) {
+  if (r<0||r>=ROWS||c<MIN_COL||c>=MIN_COL+COLS) return;
+  const inp = getInput(r,c);
+  if (!inp || inp.disabled) return;
+  activateMobileInput(r,c);
+}
+
+/* ══ CHECK WORDS ══ */
+function checkWords(announce) {
+  let newlySolved = [];
+  CLUE_WORDS.forEach(w => {
+    const key = wordKey(w);
+    if (solved.has(key)) return;
+    let ok = true;
+    for (let i=0;i<w.w.length;i++) {
+      const r = w.d==='down'? w.r+i : w.r;
+      const c = w.d==='across'? w.c+i : w.c;
+      const typed = userMap[`${r},${c}`]||'';
+      if (!normalizeMatch(typed, w.w[i])) { ok=false; break; }
+    }
+    if (ok) {
+      solved.add(key);
+      newlySolved.push(w);
+      for (let i=0;i<w.w.length;i++) {
+        const r = w.d==='down'? w.r+i : w.r;
+        const c = w.d==='across'? w.c+i : w.c;
+        const cell = getCell(r,c);
+        if (cell) { cell.classList.remove('active-word','active-cell','wrong-flash'); cell.classList.add('correct'); }
+        const inp = getInput(r,c);
+        if (inp) inp.disabled = true;
+      }
+      const clueEl = document.querySelector(`.clue-item[data-key="${key}"]`);
+      if (clueEl) clueEl.classList.add('done');
+    }
+  });
+  if (newlySolved.length) {
+    playWordFound();
+    const w = newlySolved[0];
+    const msgs=['Boa! '+w.w+'! 🎉',''+w.w+'! Incrível! 🌟','Correto! '+w.w+' ✅','Muito bem! '+w.w+' 💪'];
+    showBub(msgs[Math.floor(Math.random()*msgs.length)]);
+    document.getElementById('msg').textContent = '✅ ' + w.w + '!';
+    newlySolved.forEach(sw => showTip(sw.w));
+    setTimeout(()=>{ if(solved.size<CLUE_WORDS.length) document.getElementById('msg').textContent=''; },1600);
+  }
+  updateProgress();
+  const total = CLUE_WORDS.length;
+  if (solved.size === total) setTimeout(showWin, 700);
+}
+
+function updateProgress() {
+  const pct = Math.round(solved.size / CLUE_WORDS.length * 100);
+  document.getElementById('score-inline').textContent = solved.size+' / '+CLUE_WORDS.length+' palavras';
+}
+
+/* ══ CLUES ══ */
+function renderClues() {
+  const acrossEl = document.getElementById('clues-across');
+  const downEl   = document.getElementById('clues-down');
+  acrossEl.innerHTML = ''; downEl.innerHTML = '';
+  [...CLUE_WORDS].sort((a,b)=>a.n-b.n).forEach(w => {
+    const div = document.createElement('div');
+    div.className = 'clue-item';
+    div.dataset.key = wordKey(w);
+    div.innerHTML = `<span class="clue-num">${w.n}</span><span>${w.clue}</span>`;
+    div.addEventListener('click', () => {
+      highlight(w);
+      // focus first empty cell
+      let targetR = w.r, targetC = w.c;
+      for (let i=0;i<w.w.length;i++) {
+        const r = w.d==='down'? w.r+i : w.r;
+        const c = w.d==='across'? w.c+i : w.c;
+        if (!(userMap[`${r},${c}`])) { targetR=r; targetC=c; break; }
+      }
+      // Small delay so the blur event from mobileTA doesn't fight us
+      setTimeout(() => { focusCell(targetR, targetC); }, 50);
+    });
+    (w.d==='across'?acrossEl:downEl).appendChild(div);
+  });
+}
+
+/* ══ HINT ══ */
+document.getElementById('btn-hint').addEventListener('click', () => {
+  if (!hintsLeft) { showBub('Sem mais dicas! 😅'); return; }
+  const unsolved = CLUE_WORDS.filter(w=>!solved.has(wordKey(w)));
+  if (!unsolved.length) return;
+  const w = (activeWord && unsolved.includes(activeWord)) ? activeWord : unsolved[Math.floor(Math.random()*unsolved.length)];
+  // reveal first wrong/empty
+  for (let i=0;i<w.w.length;i++) {
+    const r = w.d==='down'? w.r+i : w.r;
+    const c = w.d==='across'? w.c+i : w.c;
+    if ((userMap[`${r},${c}`]||'') !== w.w[i]) {
+      userMap[`${r},${c}`] = w.w[i];
+      const inp = getInput(r,c);
+      if (inp) inp.value = w.w[i];
+      const cell = getCell(r,c);
+      if (cell) cell.classList.remove('wrong-flash');
+      break;
+    }
+  }
+  hintsLeft--;
+  hintsSession[lvl] = hintsLeft;
+  document.getElementById('hints-left').textContent = hintsLeft;
+  checkWords();
+  showBub('Dica dada! Encontra o resto! 💡');
+});
+
+/* ══ CHECK BUTTON ══ */
+document.getElementById('btn-check').addEventListener('click', () => {
+  let errs = 0;
+  for (const key in userMap) {
+    if (!userMap[key]) continue;
+    const [r,c] = key.split(',').map(Number);
+    if (userMap[key] && !normalizeMatch(userMap[key], letterMap[key])) {
+      const cell = getCell(r,c);
+      if (cell) { cell.classList.add('wrong-flash'); setTimeout(()=>cell.classList.remove('wrong-flash'),400); }
+      errs++;
+    }
+  }
+  if (errs) { showBub('Tens '+errs+' erro(s)! Não desistas! 💪'); document.getElementById('msg').textContent='❌ '+errs+' erro(s)!'; }
+  else { showBub('Sem erros! Continua! 🌟'); document.getElementById('msg').textContent='✅ Tudo certo!'; }
+  setTimeout(()=>{ if(solved.size<CLUE_WORDS.length) document.getElementById('msg').textContent=''; },2000);
+});
+
+/* ══ WIN ══ */
+function showWin() {
+  stopTimer();
+  playWin();
+  const elapsed = timerSeconds;
+  const m=Math.floor(elapsed/60), s=elapsed%60;
+  document.getElementById('winName').textContent = playerName;
+  document.getElementById('winFound').textContent = solved.size+' / '+CLUE_WORDS.length;
+  let recordMsg = '';
+  const prevRecord = getRecord(lvl);
+  if (prevRecord == null || elapsed < prevRecord) {
+    setRecord(lvl, elapsed);
+    recordMsg = ' — 🎉 Novo recorde!';
+  }
+  document.getElementById('winTime').textContent = (m?m+'m '+s+'s':s+'s') + recordMsg;
+  const [t1,t2] = LEVELS[lvl].medalTimes;
+  document.getElementById('winMedal').textContent = elapsed<t1?'🥇 Super rápido!':elapsed<t2?'🥈 Muito bem!':'🥉 Parabéns!';
+  const winTipsList=document.getElementById('winTipsList'), winTips=document.getElementById('winTips');
+  if (winTips && winTipsList) {
+    if (tipsAprendidas.length) {
+      winTips.style.display='block';
+      winTipsList.innerHTML = tipsAprendidas.map(t=>'<div class="win-tip-item">'+t+'</div>').join('');
+    } else {
+      winTips.style.display='none';
+    }
+  }
+  document.getElementById('gameScreen').classList.remove('active');
+  document.getElementById('winOverlay').classList.add('active');
+  setLetterbox('#050f0a');
+  showBub('Parabéns '+playerName+'! Descobriste tudo! Feliz Natal! 🎅');
+  spawnConfetti();
+}
+
+/* ══ FUNDO DA FAIXA EXTERIOR (letterbox) ──
+   #0e2a1f liso = tom do ecrã de jogo (sem vinheta, animation:none)
+   #050f0a escuro = tom da vinheta radial dos outros ecrãs (menu, vitória) */
+function setLetterbox(c){document.body.style.background=c;document.documentElement.style.background=c;}
+
+/* ══ LEVEL BUTTONS ══ */
+document.querySelectorAll('#startScreen .lvl-btn').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#startScreen .lvl-btn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active'); startSel = b.dataset.level;
+  document.getElementById('startLvlDesc').textContent = LEVELS[startSel].label;
+}));
+document.querySelectorAll('#gameScreen .lvl-btn').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#gameScreen .lvl-btn').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active'); lvl = b.dataset.level;
+  buildGrid();
+}));
+
+/* ══ NAV ══ */
+document.getElementById('btnStart').addEventListener('click', () => {
+  playerName = document.getElementById('playerName').value.trim() || 'Amigo do Natal';
+  lvl = startSel;
+  document.getElementById('startScreen').classList.remove('active');
+  document.getElementById('gameScreen').classList.add('active');
+  setLetterbox('#0e2a1f');
+  document.getElementById('fixed-robot-name').textContent = '👤 '+playerName;
+  document.getElementById('fixed-robot-wrap').classList.add('visible');
+  document.querySelectorAll('#gameScreen .lvl-btn').forEach(b=>b.classList.toggle('active', b.dataset.level===lvl));
+  showBub('Vamos lá, ' + playerName + '! 🎈');
+  buildGrid();
+});
+document.getElementById('btn-restart').addEventListener('click', ()=>{
+  buildGrid(); showBub('Novo jogo! Bora lá! 🎈');
+});
+document.getElementById('btn-menu').addEventListener('click', goMenu);
+document.getElementById('btnWinRestart').addEventListener('click', ()=>{ stopConf(); document.getElementById('winOverlay').classList.remove('active'); document.getElementById('gameScreen').classList.add('active'); setLetterbox('#0e2a1f'); buildGrid(); });
+document.getElementById('btnWinMenu').addEventListener('click', ()=>{ stopConf(); goMenu(); });
+function goMenu() {
+  stopTimer();
+  document.getElementById('gameScreen').classList.remove('active');
+  document.getElementById('winOverlay').classList.remove('active');
+  document.getElementById('startScreen').classList.add('active');
+  setLetterbox('#050f0a');
+  showBub('Descobre as palavras do Natal! ✏️🎄');
+  stopConf();
+}
+let resT, lastInnerW = window.innerWidth, lastInnerH = window.innerHeight;
+function rebuildGridIfActiveAndChanged(){
+  if(document.getElementById('gameScreen').classList.contains('active')) {
+    if (window.innerWidth !== lastInnerW || window.innerHeight !== lastInnerH) {
+      lastInnerW = window.innerWidth;
+      lastInnerH = window.innerHeight;
+      rebuildGridKeepState();
+    }
+  }
+}
+window.addEventListener('resize',()=>{
+  clearTimeout(resT);
+  resT = setTimeout(rebuildGridIfActiveAndChanged, 200);
+});
+/* orientationchange sometimes fires before the browser updates
+   innerWidth/innerHeight, so re-check a little later too */
+window.addEventListener('orientationchange',()=>{
+  setTimeout(rebuildGridIfActiveAndChanged, 350);
+});
+
+function rebuildGridKeepState() {
+  const savedUser = {...userMap};
+  const savedSolved = new Set(solved);
+  const savedHints = hintsLeft;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    _renderGrid();
+    // Restore state after render
+    userMap = savedUser;
+    solved = savedSolved;
+    hintsLeft = savedHints;
+    document.getElementById('hints-left').textContent = hintsLeft;
+    for (const key in userMap) {
+      const [r,c] = key.split(',').map(Number);
+      const inp = getInput(r,c);
+      if (inp) inp.value = userMap[key]||'';
+    }
+    solved.forEach(key => {
+      const w = CLUE_WORDS.find(x=>wordKey(x)===key);
+      if (!w) return;
+      for (let i=0;i<w.w.length;i++) {
+        const r=w.d==='down'?w.r+i:w.r, c=w.d==='across'?w.c+i:w.c;
+        const cell=getCell(r,c); const inp=getInput(r,c);
+        if(cell){cell.classList.remove('active-word','active-cell');cell.classList.add('correct');}
+        if(inp)inp.disabled=true;
+      }
+      const clueEl=document.querySelector(`.clue-item[data-key="${key}"]`);
+      if(clueEl)clueEl.classList.add('done');
+    });
+    updateProgress();
+  }));
+}
+
+/* ══ CONFETTI ══ */
+let cInt=null;
+const CE=['❄️','🌟','🎄','🎁','⭐','🔔','🍬','🎅'];
+function spawnConfetti(){const el=document.getElementById('confetti');el.classList.remove('hidden');el.innerHTML='';cInt=setInterval(()=>{for(let i=0;i<5;i++){const s=document.createElement('span');s.textContent=CE[Math.floor(Math.random()*CE.length)];s.style.left=Math.random()*100+'vw';s.style.animationDuration=(2+Math.random()*2.5)+'s';s.style.animationDelay=Math.random()+'s';s.style.fontSize=(14+Math.random()*14)+'px';el.appendChild(s);setTimeout(()=>s.remove(),4500);}},280);}
+function stopConf(){clearInterval(cInt);const el=document.getElementById('confetti');el.classList.add('hidden');el.innerHTML='';}
+
+/* ═══════════════════════════════════════════════════════════
+   VANBERTO'S — desenho fiel ao robô do jogo "Missão Cibersegurança"
+   (mesmo código usado no jogo da Sopa de Letras)
+   ═══════════════════════════════════════════════════════════ */
+function rrVan(ctx,x,y,w,h,r){
+  const rr=Math.min(r,w/2,h/2);
+  ctx.beginPath();ctx.moveTo(x+rr,y);ctx.arcTo(x+w,y,x+w,y+h,rr);ctx.arcTo(x+w,y+h,x,y+h,rr);ctx.arcTo(x,y+h,x,y,rr);ctx.arcTo(x,y,x+w,y,rr);ctx.closePath();
+}
+function cfVan(ctx,x,y,r,color){ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();}
+
+function drawVanBerto(ctx,blink,step,armsUp){
+  const w=96,h=96;
+  ctx.clearRect(0,0,w,h);
+  ctx.lineJoin="round"; ctx.lineCap="round";
+  ctx.save(); ctx.translate(0,6);
+  const NAVY="#16233e", NAVY2="#26365a", OUT="#101a30";
+  function white(x0,y0,x1,y1){const g=ctx.createLinearGradient(x0,y0,x1,y1);g.addColorStop(0,"#ffffff");g.addColorStop(0.55,"#e6edf7");g.addColorStop(1,"#b4c4dc");return g;}
+
+  const LIFT=8, STRIDE=3;
+  let lTop=70, rTop=70, lDX=0, rDX=0;
+  if(step===0){ lTop=70-LIFT; lDX=STRIDE; rDX=-STRIDE; }
+  else if(step===1){ rTop=70-LIFT; rDX=STRIDE; lDX=-STRIDE; }
+  function leg(cx,top){
+    rrVan(ctx,cx-5,top,10,11,4.5); ctx.fillStyle=white(cx-5,top,cx+5,top); ctx.fill();
+    ctx.lineWidth=2.6; ctx.strokeStyle=OUT; ctx.stroke();
+    const fy=top+9;
+    rrVan(ctx,cx-6.5,fy,13,9,4); ctx.fillStyle=NAVY; ctx.fill();
+    ctx.lineWidth=2.6; ctx.strokeStyle=OUT; ctx.stroke();
+    rrVan(ctx,cx-6.5,fy+2,13,2.4,1.2); ctx.fillStyle="rgba(255,255,255,0.85)"; ctx.fill();
+    cfVan(ctx,cx-2.5,fy+4.5,1.4,"rgba(255,255,255,0.5)");
+  }
+  leg(41+lDX,lTop); leg(55+rDX,rTop);
+
+  const ARM_SWING = 0.24;
+  const JUMP_RAISE = 2.9;
+  let lArmSwing = 0, rArmSwing = 0;
+  if(armsUp){ lArmSwing = JUMP_RAISE; rArmSwing = -JUMP_RAISE; }
+  else if(step===0){ lArmSwing=-ARM_SWING; rArmSwing=ARM_SWING; }
+  else if(step===1){ lArmSwing=ARM_SWING; rArmSwing=-ARM_SWING; }
+  function arm(sx,swing){
+    ctx.save();
+    const px=sx+4.5, py=52;
+    ctx.translate(px,py); ctx.rotate(swing); ctx.translate(-px,-py);
+    rrVan(ctx,sx,52,9,13,4.5); ctx.fillStyle=white(sx,52,sx+9,52); ctx.fill();
+    ctx.lineWidth=2.6; ctx.strokeStyle=OUT; ctx.stroke();
+    const hx=sx+4.5, hy=67;
+    cfVan(ctx,hx,hy,5,NAVY);
+    ctx.lineWidth=2.3; ctx.strokeStyle=OUT; ctx.beginPath(); ctx.arc(hx,hy,5,0,Math.PI*2); ctx.stroke();
+    cfVan(ctx,hx-2,hy+1.6,1.4,NAVY2); cfVan(ctx,hx+0.5,hy+2.4,1.4,NAVY2); cfVan(ctx,hx+2.5,hy+1.6,1.4,NAVY2);
+    ctx.restore();
+  }
+  arm(17,lArmSwing); arm(70,rArmSwing);
+
+  rrVan(ctx,26,44,44,32,15); ctx.fillStyle=white(28,46,68,46); ctx.fill();
+  ctx.save(); rrVan(ctx,26,44,44,32,15); ctx.clip();
+  const wg=ctx.createLinearGradient(0,64,0,76); wg.addColorStop(0,"rgba(22,35,62,0)"); wg.addColorStop(0.4,"#1c2c4c"); wg.addColorStop(1,"#142038");
+  ctx.fillStyle=wg; ctx.fillRect(26,62,44,16);
+  ctx.strokeStyle="rgba(16,26,48,0.6)"; ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(28,64); ctx.lineTo(68,64); ctx.stroke();
+  ctx.fillStyle="rgba(255,255,255,0.5)"; ctx.beginPath(); ctx.ellipse(36,52,9,5.5,-0.5,0,Math.PI*2); ctx.fill();
+  ctx.restore();
+  ctx.lineWidth=3; ctx.strokeStyle=OUT; rrVan(ctx,26,44,44,32,15); ctx.stroke();
+
+  cfVan(ctx,48,56,8,NAVY);
+  ctx.lineWidth=2.5; ctx.strokeStyle=OUT; ctx.beginPath(); ctx.arc(48,56,8,0,Math.PI*2); ctx.stroke();
+  const dome=ctx.createRadialGradient(45.5,53.5,1,48,56,7); dome.addColorStop(0,"#aebccf"); dome.addColorStop(0.6,"#5a6a85"); dome.addColorStop(1,"#2b3a57");
+  ctx.fillStyle=dome; ctx.beginPath(); ctx.arc(48,56,5.7,0,Math.PI*2); ctx.fill();
+  cfVan(ctx,46,53.8,1.5,"rgba(255,255,255,0.85)");
+
+  function pod(cx){
+    cfVan(ctx,cx,32,6,NAVY);
+    ctx.lineWidth=2.3; ctx.strokeStyle=OUT; ctx.beginPath(); ctx.arc(cx,32,6,0,Math.PI*2); ctx.stroke();
+    cfVan(ctx,cx,32,2.8,NAVY2); cfVan(ctx,cx-0.8,31,1,"rgba(255,255,255,0.6)");
+  }
+  pod(25); pod(71);
+
+  ctx.fillStyle=NAVY; ctx.beginPath(); ctx.moveTo(45,16); ctx.lineTo(51,16); ctx.lineTo(49.2,8); ctx.lineTo(46.8,8); ctx.closePath(); ctx.fill();
+  const halo=ctx.createRadialGradient(48,5,1,48,5,11); halo.addColorStop(0,"rgba(90,200,255,0.55)"); halo.addColorStop(1,"rgba(90,200,255,0)");
+  ctx.fillStyle=halo; ctx.beginPath(); ctx.arc(48,5,11,0,Math.PI*2); ctx.fill();
+  const bg=ctx.createRadialGradient(46.3,3.5,0.5,48,5,5.5); bg.addColorStop(0,"#e6f7ff"); bg.addColorStop(0.4,"#48b4ff"); bg.addColorStop(1,"#1670d8");
+  ctx.fillStyle=bg; ctx.beginPath(); ctx.arc(48,5,5.5,0,Math.PI*2); ctx.fill();
+  cfVan(ctx,46.2,3.4,1.6,"#ffffff");
+
+  rrVan(ctx,26,14,44,34,17); ctx.fillStyle=white(28,15,68,15); ctx.fill();
+  ctx.lineWidth=3; ctx.strokeStyle=OUT; ctx.stroke();
+  ctx.save(); rrVan(ctx,26,14,44,34,17); ctx.clip();
+  ctx.fillStyle="rgba(255,255,255,0.6)"; ctx.beginPath(); ctx.ellipse(38,19,10,4,-0.5,0,Math.PI*2); ctx.fill(); ctx.restore();
+
+  rrVan(ctx,30,20,36,23,12); ctx.fillStyle=NAVY; ctx.fill();
+  rrVan(ctx,32.5,22,31,19,10);
+  const vg=ctx.createLinearGradient(0,22,0,41); vg.addColorStop(0,"#7fd4ff"); vg.addColorStop(0.5,"#2a9bf0"); vg.addColorStop(1,"#1366c6");
+  ctx.fillStyle=vg; ctx.fill();
+  ctx.save(); rrVan(ctx,32.5,22,31,19,10); ctx.clip();
+  ctx.fillStyle="rgba(255,255,255,0.45)"; ctx.beginPath(); ctx.ellipse(42,25,9,3.5,-0.4,0,Math.PI*2); ctx.fill(); ctx.restore();
+
+  if(!blink){
+    ctx.fillStyle="#0a0f1c";
+    ctx.beginPath(); ctx.ellipse(41,30,3.3,4,0,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(55,30,3.3,4,0,0,Math.PI*2); ctx.fill();
+    cfVan(ctx,42.3,28.4,1.5,"#fff"); cfVan(ctx,39.9,31,0.8,"#fff");
+    cfVan(ctx,56.3,28.4,1.5,"#fff"); cfVan(ctx,53.9,31,0.8,"#fff");
+  } else if(blink==="wink"){
+    ctx.fillStyle="#0a0f1c";
+    ctx.beginPath(); ctx.ellipse(41,30,3.3,4,0,0,Math.PI*2); ctx.fill();
+    cfVan(ctx,42.3,28.4,1.5,"#fff"); cfVan(ctx,39.9,31,0.8,"#fff");
+    ctx.lineWidth=3; ctx.strokeStyle="#0a0f1c"; ctx.lineCap="round";
+    ctx.beginPath(); ctx.arc(55,31,3.5,0.15*Math.PI,0.85*Math.PI); ctx.stroke();
+  } else if(blink==="happy"){
+    ctx.lineWidth=3.2; ctx.strokeStyle="#0a0f1c"; ctx.lineCap="round";
+    ctx.beginPath(); ctx.arc(41,31,3.9,0.10*Math.PI,0.90*Math.PI); ctx.stroke();
+    ctx.beginPath(); ctx.arc(55,31,3.9,0.10*Math.PI,0.90*Math.PI); ctx.stroke();
+    cfVan(ctx,33.5,35.5,3,"rgba(255,120,120,0.55)");
+    cfVan(ctx,62.5,35.5,3,"rgba(255,120,120,0.55)");
+  } else if(blink==="sad"){
+    ctx.strokeStyle="#0a0f1c"; ctx.lineWidth=2.3; ctx.lineCap="round";
+    ctx.beginPath(); ctx.moveTo(37,24); ctx.lineTo(44.5,27); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(59,24); ctx.lineTo(51.5,27); ctx.stroke();
+    ctx.fillStyle="#0a0f1c";
+    ctx.beginPath(); ctx.ellipse(41,32,2.8,3.1,0,0,Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(55,32,2.8,3.1,0,0,Math.PI*2); ctx.fill();
+    cfVan(ctx,42,30.7,1.1,"#fff"); cfVan(ctx,56,30.7,1.1,"#fff");
+    ctx.fillStyle="#6fd0ff";
+    ctx.beginPath();
+    ctx.moveTo(56,35); ctx.quadraticCurveTo(59,40,56,43.5); ctx.quadraticCurveTo(53,40,56,35);
+    ctx.closePath(); ctx.fill();
+  } else {
+    ctx.lineWidth=3; ctx.strokeStyle="#0a0f1c";
+    ctx.beginPath(); ctx.arc(41,31,3.5,0.15*Math.PI,0.85*Math.PI); ctx.stroke();
+    ctx.beginPath(); ctx.arc(55,31,3.5,0.15*Math.PI,0.85*Math.PI); ctx.stroke();
+  }
+  ctx.fillStyle="#0a0f1c";
+  if(blink==="wink"){
+    ctx.beginPath(); ctx.ellipse(48,36,5.6,3.6,0,0,Math.PI); ctx.fill();
+    ctx.fillStyle="#ff7a7a";
+    ctx.beginPath(); ctx.ellipse(48,37.6,2.9,1.7,0,0,Math.PI); ctx.fill();
+  } else if(blink==="happy"){
+    ctx.beginPath(); ctx.ellipse(48,36,6.2,4.2,0,0,Math.PI); ctx.fill();
+    ctx.fillStyle="#ff7a7a";
+    ctx.beginPath(); ctx.ellipse(48,38,3.2,1.9,0,0,Math.PI); ctx.fill();
+  } else if(blink==="sad"){
+    ctx.strokeStyle="#0a0f1c"; ctx.lineWidth=2.4; ctx.lineCap="round";
+    ctx.beginPath(); ctx.arc(48,40,4.2,Math.PI,Math.PI*2); ctx.stroke();
+  } else {
+    ctx.beginPath(); ctx.ellipse(48,36,4.6,3.2,0,0,Math.PI); ctx.fill();
+    ctx.fillStyle="#ff7a7a";
+    ctx.beginPath(); ctx.ellipse(48,37.4,2.4,1.5,0,0,Math.PI); ctx.fill();
+  }
+  // gorro de Pai Natal
+  ctx.beginPath(); ctx.moveTo(27,22); ctx.quadraticCurveTo(30,2,56,0); ctx.quadraticCurveTo(67,10,69,22); ctx.closePath();
+  ctx.fillStyle="#d62839"; ctx.fill(); ctx.lineWidth=2.6; ctx.strokeStyle=OUT; ctx.stroke();
+  rrVan(ctx,24,16,48,9,4.5); ctx.fillStyle="#ffffff"; ctx.fill(); ctx.lineWidth=2.6; ctx.strokeStyle=OUT; ctx.stroke();
+  cfVan(ctx,57,0,5.5,"#ffffff"); ctx.lineWidth=2.3; ctx.strokeStyle=OUT; ctx.beginPath(); ctx.arc(57,0,5.5,0,Math.PI*2); ctx.stroke();
+  ctx.restore();
+}
+
+/* ══ ROBOT ══ */
+const MSGS=['Clica numa pista e escreve! ✏️','Vamos lá, és incrível! 🌟','Não desistas, consegues! 💪','Usa a dica! 💡','As letras cruzam-se! 🔤','Ho ho ho! Feliz Natal! 🎅','Já ouviste os sinos? 🔔','Já estás quase! Força! 🚀','Que cheirinho a bolo-rei! 🎂','O Pai Natal está a ver! 🎁'];
+function showBub(msg){
+  const b=document.getElementById('fixed-bubble');
+  if(b){b.textContent=msg;b.classList.add('show');clearTimeout(bubT);bubT=setTimeout(()=>b.classList.remove('show'),3500);}
+}
+let bubT=null;
+const vbR=document.getElementById('fixed-vb-robot');
+const vbCtx=vbR.getContext('2d');
+let vbBusy=false; // impede animações sobrepostas
+
+function vbSetFrame(blink,step,armsUp){ drawVanBerto(vbCtx,blink,step,armsUp); }
+vbSetFrame(false,-1,false); // pose parada inicial, olhos abertos, sorriso
+
+/* piscar de olhos — rápido, não bloqueia outras animações */
+function vbBlink(){
+  if(vbBusy)return;
+  vbSetFrame(true,-1,false);
+  setTimeout(()=>{ if(!vbBusy) vbSetFrame(false,-1,false); },180);
+}
+
+/* marcha no lugar */
+function vbWalk(steps=6,speed=170){
+  if(vbBusy)return;
+  vbBusy=true;
+  let i=0;
+  const iv=setInterval(()=>{
+    vbSetFrame(false, i%2===0?0:1, false);
+    i++;
+    if(i>=steps){
+      clearInterval(iv);
+      vbSetFrame(false,-1,false);
+      vbBusy=false;
+    }
+  },speed);
+}
+
+/* salto — braços para cima, cara feliz, e "pulo" visual com CSS */
+function vbJump(){
+  if(vbBusy)return;
+  vbBusy=true;
+  vbR.classList.remove('bounce');void vbR.offsetWidth;vbR.classList.add('bounce');
+  vbSetFrame('happy',-1,true);
+  setTimeout(()=>{
+    vbSetFrame(false,-1,false);
+    vbBusy=false;
+  },700);
+}
+
+/* comportamento espontâneo: de vez em quando pisca, marcha ou salta sozinho */
+setInterval(()=>{
+  if(vbBusy)return;
+  const r=Math.random();
+  if(r<0.18)vbJump();
+  else if(r<0.5)vbWalk();
+  else vbBlink();
+},3600);
+
+vbR.addEventListener('click',()=>{
+  vbJump();
+  showBub(MSGS[Math.floor(Math.random()*MSGS.length)]);
+});
+vbR.addEventListener('keydown',e=>{
+  if(e.key==='Enter'||e.key===' '){
+    vbJump();
+    showBub(MSGS[Math.floor(Math.random()*MSGS.length)]);
+  }
+});
+setInterval(()=>{if(document.getElementById('gameScreen').classList.contains('active')&&solved.size<CLUE_WORDS.length){const m=['Força! Já descobriste '+solved.size+'! 💪','Continua! Estás a arrasar! 🌟','Consegues! Não desistas! 🎯'];showBub(m[Math.floor(Math.random()*m.length)]);}},20000);
+
+// Mensagem de boas-vindas ao iniciar
+setTimeout(()=>showBub('Ho ho ho! Sou o VanBerto\'s! Vamos descobrir o Natal! 🎄'), 600);
+setTimeout(()=>showBub('Descobre as palavras do Natal! ✏️🎄'), 4000);
+
+/* ══ FULLSCREEN ══ */
+const btnFS = document.getElementById('btn-fullscreen');
+function updateFSIcon(){
+  const isFS=!!(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement);
+  btnFS.textContent=isFS?'✕':'⛶';
+  btnFS.title=isFS?'Sair do ecrã inteiro':'Ecrã inteiro';
+}
+btnFS.addEventListener('click',()=>{
+  const isFS=!!(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement);
+  if(!isFS){
+    const el=document.documentElement;
+    if(el.requestFullscreen)el.requestFullscreen();
+    else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();
+    else if(el.mozRequestFullScreen)el.mozRequestFullScreen();
+  } else {
+    if(document.exitFullscreen)document.exitFullscreen();
+    else if(document.webkitExitFullscreen)document.webkitExitFullscreen();
+    else if(document.mozCancelFullScreen)document.mozCancelFullScreen();
+  }
+});
+function onFSChange(){
+  updateFSIcon();
+  setTimeout(()=>{
+    if(document.getElementById('gameScreen').classList.contains('active'))
+      rebuildGridKeepState();
+  },150);
+}
+document.addEventListener('fullscreenchange',onFSChange);
+document.addEventListener('webkitfullscreenchange',onFSChange);
+document.addEventListener('mozfullscreenchange',onFSChange);
+
+/* ── NEVE ── */
+(function(){
+  const el=document.getElementById('snow');
+  if(!el)return;
+  for(let i=0;i<30;i++){
+    const f=document.createElement('span');
+    f.textContent=Math.random()<.7?'❄':'•';
+    f.style.left=(Math.random()*100)+'%';
+    f.style.fontSize=(10+Math.random()*14)+'px';
+    f.style.animationDuration=(9+Math.random()*10)+'s';
+    f.style.animationDelay=(-Math.random()*18)+'s';
+    el.appendChild(f);
+  }
+})();
+
+/* ── VanBerto's a celebrar no ecrã final ── */
+(function(){
+  const cv=document.getElementById('win-robot');
+  if(!cv||typeof drawVanBerto!=='function')return;
+  const cx=cv.getContext('2d');let up=true;
+  function f(){drawVanBerto(cx,'happy',-1,up);up=!up;}
+  f();setInterval(f,450);
+})();
+</script>
+
+
+</body></html>
