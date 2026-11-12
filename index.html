@@ -4,8 +4,9 @@
 <meta http-equiv="Content-Language" content="pt-PT">
 <meta name="language" content="pt-PT">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#fffaf0">
 <title>VanBerto's — Palavras Cruzadas · Natal</title>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Fredoka+One&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Fredoka:wght@600;700&family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -516,6 +517,260 @@ html.desktop-stage #scale-wrap #snow{height:1080px}
 /* ═══ ROBÔ A CELEBRAR (ecrã final) ═══ */
 .win-robot{width:clamp(76px,16vw,108px);height:auto;display:block;margin:0 auto 6px;animation:vbWinBounce .8s ease-in-out infinite alternate;filter:drop-shadow(0 0 12px #7dd3fc)}
 @keyframes vbWinBounce{from{transform:translateY(0)}to{transform:translateY(-10px)}}
+/* ═══════════════════════════════════════════════════════════════════
+   TEMA "Hora do Código" — versão de Natal
+   creme com pontinhos, contornos escuros e sombras de botão
+   (bloco final: sobrepõe-se ao estilo escuro anterior)
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root{
+  --ink:#0f2e1f;--sun:#ffd23f;--coral:#d42426;--mint:#6fd49a;--sky:#8fd6ee;--grape:#1b7f4a;--cream:#fffaf0;--soft:#3d5c4a;
+  /* cores das palavras encontradas — claras, para o texto escuro ler bem */
+  --bc0:#ff9ec4;--fc0:#0f2e1f;
+  --bc1:#7fd6f7;--fc1:#0f2e1f;
+  --bc2:#7be495;--fc2:#0f2e1f;
+  --bc3:#ffc27a;--fc3:#0f2e1f;
+  --bc4:#c4b5fd;--fc4:#0f2e1f;
+  --bc5:#ffb3b3;--fc5:#0f2e1f;
+  --bc6:#5eead4;--fc6:#0f2e1f;
+  --bc7:#ffd23f;--fc7:#0f2e1f;
+  --bc8:#ff8fb8;--fc8:#0f2e1f;
+  --bc9:#a5b4fc;--fc9:#0f2e1f;
+  --bc10:#86efac;--fc10:#0f2e1f;
+  --bc11:#fdba74;--fc11:#0f2e1f;
+  --bc12:#e9d58b;--fc12:#0f2e1f;
+}
+/* Fundo creme com pontinhos. Cada seletor de ecrã inteiro vai numa regra SEPARADA:
+   se um browser não conhecer um deles, ignora só essa regra e não o fundo todo. */
+html,body,
+html.desktop-stage,html.desktop-stage body{
+  background-color:var(--cream)!important;
+  background-image:radial-gradient(rgba(212,36,38,.20) 1.4px,transparent 1.6px)!important;
+  background-size:22px 22px!important;
+  color:var(--ink);
+}
+:fullscreen body{background-color:var(--cream);background-image:radial-gradient(rgba(212,36,38,.20) 1.4px,transparent 1.6px);background-size:22px 22px;}
+:-webkit-full-screen body{background-color:var(--cream);background-image:radial-gradient(rgba(212,36,38,.20) 1.4px,transparent 1.6px);background-size:22px 22px;}
+body{font-family:'Nunito','Trebuchet MS',sans-serif;}
+.screen,#gameScreen{background:none;animation:none;}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
+
+/* tipos de letra */
+.modal-title,.win-title,.robot-name,#fixed-robot-name,.words-title,.win-tips-title,.tip-toast::before,
+.btn,.lvl-btn,.word-item,.timer-box,#msg,.name-row label,.cell{font-family:'Fredoka','Fredoka One','Nunito',sans-serif;}
+
+/* cartões */
+.modal-card,.win-card{
+  background:#fff;border:3px solid var(--ink);border-radius:18px;
+  box-shadow:0 6px 0 var(--ink);
+}
+.modal-card::before,.modal-card::after{display:none;}
+.modal-title{color:var(--ink);text-shadow:none;font-weight:700;border-bottom:3px dotted rgba(15,46,31,.28);}
+.modal-sub,.lvl-desc,.tiny{color:var(--soft);opacity:1;}
+.lvl-desc{font-style:normal;font-weight:700;}
+.tiny{font-style:normal;font-weight:700;}
+
+/* nome */
+.name-row label{color:var(--ink);font-weight:600;}
+.name-row input{
+  background:#fff;color:var(--ink);border:3px solid var(--ink);border-radius:12px;
+  box-shadow:0 3px 0 var(--ink);
+}
+.name-row input:focus{box-shadow:0 3px 0 var(--ink);outline:3px solid var(--grape);outline-offset:2px;}
+.name-row input::placeholder{color:var(--soft);opacity:.6;}
+
+/* níveis */
+.lvl-btn{
+  background:#fff;border:2.5px solid var(--ink);color:var(--ink);font-weight:600;
+  box-shadow:0 3px 0 var(--ink);transition:transform .08s,box-shadow .08s,background .12s;
+}
+.lvl-btn.easy,.lvl-btn.medium,.lvl-btn.hard{border-color:var(--ink);color:var(--ink);}
+.lvl-btn:hover{background:#fffbea;}
+.lvl-btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink);}
+.lvl-btn.easy.active{background:var(--mint);box-shadow:0 3px 0 var(--ink);color:var(--ink);}
+.lvl-btn.medium.active{background:var(--sun);box-shadow:0 3px 0 var(--ink);color:var(--ink);}
+.lvl-btn.hard.active{background:var(--coral);box-shadow:0 3px 0 var(--ink);color:var(--ink);}
+
+/* botões */
+.btn{
+  background:#fff;color:var(--ink);text-shadow:none;font-weight:600;
+  border:3px solid var(--ink);border-radius:14px;box-shadow:0 4px 0 var(--ink);
+  transition:transform .08s,box-shadow .08s,background .12s;
+}
+.btn:hover{background:#fffbea;transform:translateY(-2px);box-shadow:0 6px 0 var(--ink);}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink);}
+.btn.primary{background:var(--sun);color:var(--ink);border-color:var(--ink);text-shadow:none;box-shadow:0 4px 0 var(--ink);}
+.btn.primary:hover{background:#ffdc66;box-shadow:0 6px 0 var(--ink);}
+.btn.primary:active{box-shadow:0 1px 0 var(--ink);}
+.btn:focus-visible,.lvl-btn:focus-visible,#btn-fullscreen:focus-visible,#btn-mute:focus-visible,#btn-colorblind:focus-visible,
+.word-item.done:focus-visible{outline:3px solid var(--grape);outline-offset:3px;}
+
+/* cabeçalho do jogo */
+.game-player{color:var(--ink);}
+.timer-box{background:#fff;color:var(--ink);border:2.5px solid var(--ink);box-shadow:0 2px 0 var(--ink);font-weight:600;}
+#timer-box.record-beat{color:#0f7a4f;border-color:var(--ink);background:#dff5e4;}
+#timer-box.record-warn{color:#b42318;border-color:var(--ink);background:#ffe3e3;}
+#btn-fullscreen,#btn-mute,#btn-colorblind{
+  background:#fff;color:var(--ink);border:2.5px solid var(--ink);border-radius:10px;
+  box-shadow:0 2px 0 var(--ink);transition:transform .08s,box-shadow .08s,background .12s;
+}
+#btn-fullscreen:hover,#btn-mute:hover,#btn-colorblind:hover{background:#fffbea;transform:translateY(-1px);box-shadow:0 3px 0 var(--ink);border-color:var(--ink);}
+#btn-fullscreen:active,#btn-mute:active,#btn-colorblind:active{transform:translateY(2px);box-shadow:none;}
+#btn-colorblind.active{background:var(--sun);border-color:var(--ink);color:var(--ink);}
+
+/* progresso e mensagens */
+.progress-wrap{background:#fff;border:2.5px solid var(--ink);height:13px;border-radius:999px;box-shadow:0 2px 0 var(--ink);}
+.progress-bar{background:linear-gradient(90deg,var(--mint),var(--sky));border-radius:999px;}
+#msg{color:var(--grape);text-shadow:none;font-weight:600;}
+#score{color:var(--soft);font-style:normal;font-weight:700;}
+
+/* grelha: as "linhas" são o espaço entre células, pintado com a cor do contorno */
+#grid-wrap{overflow:visible;margin:4px 0 12px;}
+#grid{
+  background:var(--ink);border-radius:8px;
+  box-shadow:0 0 0 3px var(--ink),0 7px 0 3px var(--ink);
+}
+.cell{
+  background:#fff;color:var(--ink);border:0;border-radius:4px;font-weight:600;
+  transition:background .08s,transform .08s;
+}
+.cell.selecting{background:var(--sun);color:var(--ink);border:0;}
+.cell:focus-visible{outline:3px solid var(--grape);box-shadow:0 0 0 2px #fff;z-index:2;}
+.found-0,.found-1,.found-2,.found-3,.found-4,.found-5,.found-6,
+.found-7,.found-8,.found-9,.found-10,.found-11,.found-12{border-color:var(--ink)!important;}
+
+/* lista de palavras */
+.sidebar{
+  background:#fff;border:3px solid var(--ink);border-radius:16px;box-shadow:0 4px 0 var(--ink);
+}
+.words-title{color:var(--ink);font-weight:700;}
+.word-item{
+  background:#fff;color:var(--ink);border:2px solid var(--ink);border-radius:999px;
+  box-shadow:0 2px 0 var(--ink);font-weight:600;
+}
+.word-item.done{opacity:1;background:#dff5e4;text-decoration:line-through;text-decoration-thickness:2px;color:var(--soft);}
+.word-item.done:hover,.word-item.done:focus-visible{background:#c4f6e0;}
+.dot{border:2px solid var(--ink);width:12px;height:12px;}
+
+/* mascote e balões */
+#vb-robot,#fixed-vb-robot,.modal-robot{filter:drop-shadow(0 4px 0 rgba(15,46,31,.35));}
+#vb-robot:hover,#fixed-vb-robot:hover{filter:drop-shadow(0 4px 0 rgba(15,46,31,.35));}
+#fixed-vb-robot:focus-visible{outline:3px solid var(--grape);outline-offset:4px;border-radius:12px;}
+.robot-name,#fixed-robot-name{
+  color:var(--ink);text-shadow:none;background:#fff;border:2px solid var(--ink);
+  border-radius:999px;padding:0 8px;box-shadow:0 2px 0 var(--ink);font-weight:600;
+}
+#prof-tag{
+  color:var(--ink);background:#fff;border:2px solid var(--ink);border-radius:999px;
+  padding:1px 10px;box-shadow:0 2px 0 var(--ink);text-shadow:none;font-weight:700;
+}
+
+/* dica educativa */
+.tip-toast{background:#fff;border:3px solid var(--ink);outline:none;box-shadow:0 5px 0 var(--ink);color:var(--ink);}
+.tip-toast::before{color:var(--grape);font-weight:700;}
+
+/* ecrã de vitória */
+#winOverlay{background:rgba(255,250,240,.88);box-shadow:0 0 0 200vmax rgba(255,250,240,.88);}
+/* ecrã inteiro: sem o fundo preto do browser */
+::backdrop{background:var(--cream);}
+:fullscreen{background-color:var(--cream);}
+:-webkit-full-screen{background-color:var(--cream);}
+.win-title{color:var(--ink);text-shadow:none;font-weight:700;}
+.win-name{color:var(--soft);font-style:normal;font-weight:700;}
+#winName{color:var(--grape)!important;}
+.win-stat{background:var(--cream);color:var(--ink);border:2px solid var(--ink);border-radius:12px;font-weight:700;}
+.win-medal{background:var(--sun);color:var(--ink);border:2px solid var(--ink);border-radius:12px;box-shadow:0 3px 0 var(--ink);}
+.win-tips{background:var(--cream);border:2px dashed rgba(15,46,31,.45);}
+.win-tips-title{color:var(--ink);font-weight:700;}
+.win-tip-item{color:var(--ink);border-bottom:2px dotted rgba(15,46,31,.25);}
+
+/* ═══ CELEBRAÇÃO AO ACERTAR UMA PALAVRA ═══ */
+.cell.pop,.cw-cell.pop{animation:cellPop .55s cubic-bezier(.34,1.56,.64,1) both;z-index:3;}
+@keyframes cellPop{
+  0%{transform:scale(1);}
+  35%{transform:scale(1.35) rotate(-6deg);filter:brightness(1.15);}
+  70%{transform:scale(.92) rotate(3deg);}
+  100%{transform:scale(1) rotate(0);}
+}
+.cell[class*="found-"]{box-shadow:inset 0 -4px 0 rgba(15,46,31,.22);}
+.spark{position:absolute;left:50%;top:50%;font-size:14px;line-height:1;pointer-events:none;z-index:5;
+  animation:sparkFly .85s ease-out forwards;}
+@keyframes sparkFly{
+  0%{transform:translate(-50%,-50%) scale(.4);opacity:1;}
+  100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1.2) rotate(var(--rot));opacity:0;}
+}
+.word-item.just,.clue-item.just{animation:wordJust .7s cubic-bezier(.34,1.56,.64,1);}
+@keyframes wordJust{0%{transform:scale(1);}35%{transform:scale(1.18) rotate(-3deg);}100%{transform:scale(1) rotate(0);}}
+.word-item.done::after,.clue-item.done::after{content:' ✓';color:#0f7a4f;font-weight:700;text-decoration:none;display:inline-block;}
+#wordPop{
+  position:fixed;left:50%;top:38%;z-index:660;pointer-events:none;
+  transform:translate(-50%,-50%) scale(.3) rotate(-6deg);opacity:0;
+  background:#fff;border:4px solid var(--ink);border-radius:22px;box-shadow:0 7px 0 var(--ink);
+  padding:.35em .9em .4em;text-align:center;white-space:nowrap;
+  font-family:'Fredoka','Fredoka One','Nunito',sans-serif;font-weight:700;color:var(--ink);
+  font-size:clamp(1.5rem,6.5vw,3rem);line-height:1.1;
+}
+#wordPop small{display:block;font-size:.42em;color:var(--grape);letter-spacing:.5px;margin-bottom:.15em;}
+#wordPop b{display:inline-block;padding:0 .3em;border-radius:12px;background:var(--wp,var(--sun));border:3px solid var(--ink);}
+#wordPop.show{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(-2deg);animation:wordPopIn 1.5s ease both;}
+@keyframes wordPopIn{
+  0%{transform:translate(-50%,-50%) scale(.3) rotate(-8deg);opacity:0;}
+  18%{transform:translate(-50%,-50%) scale(1.15) rotate(2deg);opacity:1;}
+  30%{transform:translate(-50%,-50%) scale(1) rotate(-2deg);}
+  78%{transform:translate(-50%,-50%) scale(1) rotate(-2deg);opacity:1;}
+  100%{transform:translate(-50%,-62%) scale(.9) rotate(-2deg);opacity:0;}
+}
+
+/* ═══ PALAVRAS CRUZADAS: grelha, pistas e botões ═══ */
+#cw-wrap{overflow:visible;margin:4px 0 12px;}
+#cw-grid{background:none;border:0;box-shadow:none;padding:5px;}
+.cw-cell{border-radius:6px;transition:background .12s,transform .08s;}
+.cw-cell.empty{background:transparent;border:0;box-shadow:none;}
+.cw-cell.letter{background:#fff;border:2.5px solid var(--ink);box-shadow:0 2px 0 var(--ink);}
+.cw-cell.letter:hover{background:#fffbea;border-color:var(--ink);}
+.cw-cell.active-word{background:#fff3b0!important;border-color:var(--ink)!important;}
+.cw-cell.active-cell{background:var(--sun)!important;border-color:var(--ink)!important;box-shadow:0 2px 0 var(--ink),0 0 0 3px var(--grape)!important;z-index:2;}
+.cw-cell.correct{background:#cdeed7!important;border-color:var(--ink)!important;}
+.cw-cell.wrong-flash{animation:wrongFlashLight .45s ease-in-out;}
+@keyframes wrongFlashLight{0%,100%{background:#fff;transform:translateX(0)}25%{transform:translateX(2px)}50%{background:#ffb3b3}75%{transform:translateX(-2px)}}
+.cw-num{color:var(--grape);font-weight:800;}
+.cw-input{color:var(--ink);font-family:'Fredoka','Fredoka One','Nunito',sans-serif;font-weight:600;}
+.cw-input:disabled{color:#0f7a4f;}
+.clues-section{background:var(--cream);border:2px solid var(--ink);border-radius:12px;}
+.clues-title{color:var(--ink);font-family:'Fredoka','Fredoka One','Nunito',sans-serif;font-weight:700;}
+.clue-item{color:var(--ink);border:2px solid transparent;border-radius:8px;font-weight:700;}
+.clue-item:hover{background:#fff3b0;}
+.clue-item.active{background:var(--sun);border-color:var(--ink);color:var(--ink);}
+.clue-item.done{opacity:1;background:#dff5e4;color:var(--soft);text-decoration:line-through;pointer-events:none;}
+.clue-num{color:var(--grape);font-family:'Fredoka','Fredoka One','Nunito',sans-serif;font-weight:700;}
+.clues-section::-webkit-scrollbar-thumb,.sidebar::-webkit-scrollbar-thumb{background:var(--ink);border-radius:4px;}
+#score-inline{color:var(--ink)!important;font-family:'Fredoka','Fredoka One','Nunito',sans-serif!important;font-weight:600!important;}
+.win-name-txt{color:var(--soft);font-style:normal;font-weight:700;}
+.win-stat{background:var(--cream);color:var(--ink);border:2px solid var(--ink);border-radius:12px;}
+.win-medal{background:var(--sun);color:var(--ink);border:2px solid var(--ink);border-radius:12px;box-shadow:0 3px 0 var(--ink);}
+
+/* só as ações, alinhadas à direita */
+.header-actions{margin-left:auto;}
+
+/* DICAS bem evidentes */
+#btn-hint{background:linear-gradient(180deg,#ffe066,#ffc800) !important;color:#0f2e1f !important;border:3px solid #0f2e1f !important;font-weight:700 !important;box-shadow:0 3px 0 #0f2e1f,0 0 0 3px rgba(255,200,0,.35) !important;display:inline-flex;align-items:center;gap:5px;animation:hintBtnPulse 2s ease-in-out infinite;}
+#btn-hint:hover{background:linear-gradient(180deg,#fff08a,#ffd633) !important;transform:translateY(-2px);box-shadow:0 5px 0 #0f2e1f,0 0 0 4px rgba(255,200,0,.45) !important;}
+#btn-hint:active{transform:translateY(2px);box-shadow:0 1px 0 #0f2e1f !important;}
+#btn-hint .hint-count{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 4px;border-radius:50%;background:#d42426;color:#fff;border:2px solid #0f2e1f;font-size:.7rem;line-height:1;}
+#btn-hint.empty{background:#e5e7eb !important;color:#6b7280 !important;box-shadow:0 3px 0 #9ca3af !important;animation:none;cursor:not-allowed;}
+#btn-hint.empty .hint-count{background:#9ca3af;}
+@keyframes hintBtnPulse{0%,100%{box-shadow:0 3px 0 #0f2e1f,0 0 0 3px rgba(255,200,0,.30);}50%{box-shadow:0 3px 0 #0f2e1f,0 0 0 7px rgba(255,200,0,.12);}}
+.cw-cell.hint-flash{animation:hintCell .6s ease-in-out infinite alternate;z-index:4;box-shadow:0 0 0 4px #ffc800,0 0 18px 6px rgba(255,200,0,.85) !important;background:#fff3b0 !important;}
+@keyframes hintCell{from{transform:scale(1);}to{transform:scale(1.14);}}
+.hint-banner{position:fixed;left:50%;top:14px;transform:translate(-50%,-140%);z-index:900;max-width:92vw;background:#ffc800;color:#0f2e1f;border:3px solid #0f2e1f;border-radius:16px;padding:10px 20px;box-shadow:0 5px 0 #0f2e1f;font:700 clamp(16px,2.6vw,24px) 'Fredoka','Nunito',sans-serif;text-align:center;pointer-events:none;opacity:0;transition:transform .3s cubic-bezier(.34,1.56,.64,1),opacity .2s;}
+.hint-banner.show{transform:translate(-50%,0);opacity:1;}
+@media(prefers-reduced-motion:reduce){#btn-hint,.cw-cell.hint-flash{animation:none !important;}.hint-banner{transition:none;}}
+
+/* extras do jogo de Natal */
+#snow span{color:#7db9dc !important;opacity:.85;}
+.win-robot{filter:drop-shadow(0 4px 0 rgba(15,46,31,.3)) !important;}
+#score-inline{color:var(--ink) !important;}
+
 </style>
 </head>
 <body lang="pt-PT">
@@ -540,6 +795,7 @@ html.desktop-stage #scale-wrap #snow{height:1080px}
     </div>
     <p class="lvl-desc" id="startLvlDesc">Grelha 6×7 · 5 palavras</p>
     <div class="row">
+      <button id="btnContinue" class="btn" style="display:none">⏩ Continuar o jogo</button>
       <button id="btnStart" class="btn primary">▶ Começar a jogar!</button>
     </div>
     <p class="tiny">Clica numa pista · escreve letra a letra · as palavras cruzam-se!</p>
@@ -549,23 +805,17 @@ html.desktop-stage #scale-wrap #snow{height:1080px}
 <!-- JOGO -->
 <div id="gameScreen" class="screen">
   <div class="game-top">
-    <div class="level-bar level-bar-game">
-      <button class="lvl-btn easy" data-level="easy">⭐ Fácil</button>
-      <button class="lvl-btn medium" data-level="medium">⭐⭐ Médio</button>
-      <button class="lvl-btn hard" data-level="hard">⭐⭐⭐ Difícil</button>
-    </div>
     <div id="score-inline" style="font-family:&#39;Baloo 2&#39;,sans-serif;font-size:.82rem;font-weight:900;color:#d8ecd9;"></div>
     <div class="header-actions">
-      <div class="timer-box" id="timer-box" title="Tempo de jogo">⏱️ <span id="timer-display">00:00</span></div>
-      <button class="btn btn-sm" id="btn-hint">💡 Dica (<span id="hints-left">3</span>)</button>
+      <button class="btn btn-sm" id="btn-hint" aria-label="Usar uma dica">💡 Dica <span class="hint-count" id="hints-left">3</span></button>
       <button class="btn btn-sm" id="btn-check">✅ Verificar</button>
       <button class="btn btn-sm primary" id="btn-restart">↺ Novo Jogo</button>
       <button class="btn btn-sm" id="btn-menu">🏠 Menu</button>
       <button id="btn-fullscreen" title="Ecrã inteiro">⛶</button>
     </div>
   </div>
-  <p class="tiny" id="recordDisplay" style="width:100%;max-width:1100px;margin:0 auto .2rem;"></p>
   <div id="msg" role="status" aria-live="polite"></div>
+  <div id="hintBanner" class="hint-banner" role="status" aria-live="polite"></div>
   <div id="tipToast" class="tip-toast" role="status" aria-live="polite"></div>
   <div class="game-layout">
     <div id="cw-wrap"><div id="cw-grid"></div></div>
@@ -590,9 +840,8 @@ html.desktop-stage #scale-wrap #snow{height:1080px}
   <div class="win-card">
     <canvas id="win-robot" class="win-robot" width="96" height="96" aria-hidden="true"></canvas>
     <div class="win-title">Feliz Natal!</div>
-    <p class="win-name-txt">Parabéns, <strong id="winName" style="color:#ffd35a;font-style:normal">Amigo</strong>! Ajudaste o Pai Natal a completar tudo!</p>
+    <p class="win-name-txt">Parabéns, <strong id="winName" style="color:#ffd35a;font-style:normal">Herói</strong>! Ajudaste o Pai Natal a completar tudo!</p>
     <div class="win-stat">✏️ Palavras: <strong id="winFound">0</strong></div>
-    <div class="win-stat">⏱️ Tempo: <strong id="winTime">—</strong></div>
     <div class="win-medal" id="winMedal">🥇 Excelente!</div>
     <div class="win-tips" id="winTips" style="display:none">
       <div class="win-tips-title">📚 O que aprendeste hoje:</div>
@@ -609,8 +858,10 @@ html.desktop-stage #scale-wrap #snow{height:1080px}
 <div id="fixed-robot-wrap">
   <div id="fixed-bubble" role="status" aria-live="polite" class="">Descobre as palavras do Natal! ✏️🎄</div>
   <canvas id="fixed-vb-robot" width="96" height="96" role="button" tabindex="0" aria-label="VanBerto's — clica para falar"></canvas>
-  <div id="fixed-robot-name">👤 Amigo</div>
+  <div id="fixed-robot-name">👤 Herói</div>
 </div>
+
+<div id="wordPop" role="status" aria-live="polite"></div>
 
 <div id="confetti" class="hidden"></div>
 
@@ -852,61 +1103,26 @@ function buildLetterMap() {
 }
 
 /* ══ STATE ══ */
-let playerName = 'Amigo do Natal';
+let playerName = 'Herói';
 let letterMap = {};
 let userMap = {};    // "r,c" -> letter typed
 let solved = new Set(); // word keys "n-d"
 let activeWord = null;
 let hintsLeft = 5;
-/* dicas limitadas por sessão (não por partida): "Novo Jogo" não volta a dar dicas */
-const hintsSession = {};
+/* cada novo jogo começa sempre com as dicas do nível */
+function updateHintUI(){
+  const b=document.getElementById('btn-hint'),n=document.getElementById('hints-left');
+  if(n)n.textContent=hintsLeft;
+  if(b){b.classList.toggle('empty',!hintsLeft);b.setAttribute('aria-disabled',hintsLeft?'false':'true');}
+}
+function showHintBanner(t,ms){const hb=document.getElementById('hintBanner');hb.textContent=t;hb.classList.add('show');clearTimeout(hb._t);hb._t=setTimeout(()=>hb.classList.remove('show'),ms||3500);}
 
-/* ══ CRONÓMETRO E RECORDE (por nível) ══ */
-let timerInterval = null, timerSeconds = 0;
-function fmtTime(sec){
-  const m=Math.floor(sec/60), s=sec%60;
-  return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
-}
-function startTimer(){
-  stopTimer();
-  timerSeconds = 0;
-  const disp = document.getElementById('timer-display');
-  if (disp) disp.textContent = fmtTime(0);
-  const tbox = document.getElementById('timer-box');
-  tbox && tbox.classList.remove('record-warn');
-  timerInterval = setInterval(()=>{
-    timerSeconds++;
-    if (disp) disp.textContent = fmtTime(timerSeconds);
-    updateLiveRecordHint();
-  }, 1000);
-}
-function stopTimer(){ if (timerInterval) { clearInterval(timerInterval); timerInterval = null; } }
-function recordKey(level){ return 'vb_cw_natal_record_'+level; }
-function getRecord(level){
-  try { const v = localStorage.getItem(recordKey(level)); return v ? parseInt(v,10) : null; } catch(e){ return null; }
-}
-function setRecord(level, sec){ try { localStorage.setItem(recordKey(level), String(sec)); } catch(e){} }
-function updateRecordDisplay(){
-  const el = document.getElementById('recordDisplay');
-  if (!el) return;
-  const rec = getRecord(lvl);
-  el.textContent = rec != null ? ('🏆 O teu recorde neste nível: '+fmtTime(rec)) : '🏆 Ainda sem recorde neste nível — sê o primeiro!';
-}
-/* enquanto se joga, mostra quanto falta para bater o recorde */
-function updateLiveRecordHint(){
-  const el = document.getElementById('recordDisplay');
-  if (!el) return;
-  const rec = getRecord(lvl), tbox = document.getElementById('timer-box');
-  if (rec == null) return;
-  const remaining = rec - timerSeconds;
-  if (remaining > 0) {
-    el.textContent = '🏆 Faltam '+fmtTime(remaining)+' para bateres o teu recorde!';
-    tbox && tbox.classList.remove('record-warn');
-  } else {
-    el.textContent = '⏳ Já passaste o teu tempo recorde ('+fmtTime(rec)+') — força, ainda dá para terminar!';
-    tbox && tbox.classList.add('record-warn');
-  }
-}
+/* ══ CRONÓMETRO E RECORDE ══ */
+/* (cronómetro e recordes removidos — o jogo já não conta o tempo) */
+let hintsUsedGame=0;
+function stopTimer(){}
+function startTimer(){}
+function updateRecordDisplay(){}
 
 function wordKey(wobj) { return wobj.n+'-'+wobj.d; }
 
@@ -917,11 +1133,12 @@ function buildGrid() {
   userMap = {};
   solved.clear();
   activeWord = null;
-  if (!(lvl in hintsSession)) hintsSession[lvl] = LEVELS[lvl].hints;
-  hintsLeft = hintsSession[lvl];
+  hintsLeft = LEVELS[lvl].hints;
+  hintsUsedGame = 0;
   tipsAprendidas = [];
+  vbClearSave();
   const tt = document.getElementById('tipToast'); if (tt) tt.classList.remove('show');
-  document.getElementById('hints-left').textContent = hintsLeft;
+  updateHintUI();
   document.getElementById('msg').textContent = '';
   updateRecordDisplay();
   startTimer();
@@ -1077,7 +1294,7 @@ function getMobileTA() {
       e.preventDefault();
       const inp = getInput(mobileR, mobileC);
       if (inp && !inp.value) { movePrev(mobileR,mobileC); }
-      else if (inp) { inp.value=''; userMap[`${mobileR},${mobileC}`]=''; mobileTA.value=''; }
+      else if (inp) { inp.value=''; userMap[`${mobileR},${mobileC}`]=''; mobileTA.value=''; vbSaveGame(); }
     }
     if (e.key==='Enter') { e.preventDefault(); checkWords(true); }
     if (e.key==='ArrowRight') { e.preventDefault(); focusCell(mobileR,mobileC+1); }
@@ -1305,10 +1522,11 @@ function checkWords(announce) {
     const msgs=['Boa! '+w.w+'! 🎉',''+w.w+'! Incrível! 🌟','Correto! '+w.w+' ✅','Muito bem! '+w.w+' 💪'];
     showBub(msgs[Math.floor(Math.random()*msgs.length)]);
     document.getElementById('msg').textContent = '✅ ' + w.w + '!';
-    newlySolved.forEach(sw => showTip(sw.w));
+    newlySolved.forEach(sw => { celebrate(sw); showTip(sw.w); });
     setTimeout(()=>{ if(solved.size<CLUE_WORDS.length) document.getElementById('msg').textContent=''; },1600);
   }
   updateProgress();
+  vbSaveGame();
   const total = CLUE_WORDS.length;
   if (solved.size === total) setTimeout(showWin, 700);
 }
@@ -1346,7 +1564,7 @@ function renderClues() {
 
 /* ══ HINT ══ */
 document.getElementById('btn-hint').addEventListener('click', () => {
-  if (!hintsLeft) { showBub('Sem mais dicas! 😅'); return; }
+  if (!hintsLeft) { showBub('Sem mais dicas! 😅'); showHintBanner('💡 Já não tens mais dicas neste jogo',2200); return; }
   const unsolved = CLUE_WORDS.filter(w=>!solved.has(wordKey(w)));
   if (!unsolved.length) return;
   const w = (activeWord && unsolved.includes(activeWord)) ? activeWord : unsolved[Math.floor(Math.random()*unsolved.length)];
@@ -1359,15 +1577,16 @@ document.getElementById('btn-hint').addEventListener('click', () => {
       const inp = getInput(r,c);
       if (inp) inp.value = w.w[i];
       const cell = getCell(r,c);
-      if (cell) cell.classList.remove('wrong-flash');
+      if (cell) { cell.classList.remove('wrong-flash'); cell.classList.add('hint-flash'); setTimeout(()=>cell.classList.remove('hint-flash'),3500); }
       break;
     }
   }
   hintsLeft--;
-  hintsSession[lvl] = hintsLeft;
-  document.getElementById('hints-left').textContent = hintsLeft;
+  hintsUsedGame++;
+  updateHintUI();
   checkWords();
   showBub('Dica dada! Encontra o resto! 💡');
+  showHintBanner('💡 Dica: revelei uma letra!');
 });
 
 /* ══ CHECK BUTTON ══ */
@@ -1390,20 +1609,11 @@ document.getElementById('btn-check').addEventListener('click', () => {
 /* ══ WIN ══ */
 function showWin() {
   stopTimer();
+  vbClearSave();
   playWin();
-  const elapsed = timerSeconds;
-  const m=Math.floor(elapsed/60), s=elapsed%60;
   document.getElementById('winName').textContent = playerName;
   document.getElementById('winFound').textContent = solved.size+' / '+CLUE_WORDS.length;
-  let recordMsg = '';
-  const prevRecord = getRecord(lvl);
-  if (prevRecord == null || elapsed < prevRecord) {
-    setRecord(lvl, elapsed);
-    recordMsg = ' — 🎉 Novo recorde!';
-  }
-  document.getElementById('winTime').textContent = (m?m+'m '+s+'s':s+'s') + recordMsg;
-  const [t1,t2] = LEVELS[lvl].medalTimes;
-  document.getElementById('winMedal').textContent = elapsed<t1?'🥇 Super rápido!':elapsed<t2?'🥈 Muito bem!':'🥉 Parabéns!';
+  document.getElementById('winMedal').textContent = hintsUsedGame===0?'🥇 Sem ajudas — super!':hintsUsedGame<=1?'🥈 Muito bem!':'🥉 Parabéns!';
   const winTipsList=document.getElementById('winTipsList'), winTips=document.getElementById('winTips');
   if (winTips && winTipsList) {
     if (tipsAprendidas.length) {
@@ -1423,7 +1633,7 @@ function showWin() {
 /* ══ FUNDO DA FAIXA EXTERIOR (letterbox) ──
    #0e2a1f liso = tom do ecrã de jogo (sem vinheta, animation:none)
    #050f0a escuro = tom da vinheta radial dos outros ecrãs (menu, vitória) */
-function setLetterbox(c){document.body.style.background=c;document.documentElement.style.background=c;}
+function setLetterbox(c){/* o fundo creme com pontinhos vem do CSS (tema Hora do Código) */}
 
 /* ══ LEVEL BUTTONS ══ */
 document.querySelectorAll('#startScreen .lvl-btn').forEach(b=>b.addEventListener('click',()=>{
@@ -1431,22 +1641,63 @@ document.querySelectorAll('#startScreen .lvl-btn').forEach(b=>b.addEventListener
   b.classList.add('active'); startSel = b.dataset.level;
   document.getElementById('startLvlDesc').textContent = LEVELS[startSel].label;
 }));
-document.querySelectorAll('#gameScreen .lvl-btn').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('#gameScreen .lvl-btn').forEach(x=>x.classList.remove('active'));
-  b.classList.add('active'); lvl = b.dataset.level;
-  buildGrid();
-}));
+
+/* ══ GUARDAR NOME E JOGO (continua mesmo depois de sair) ══ */
+const VB_NAME_KEY='vb_cw_natal_playername',VB_SAVE_KEY='vb_cw_natal_save';
+function vbSaveName(n){try{localStorage.setItem(VB_NAME_KEY,n);}catch(e){}}
+function vbSaveGame(){
+  try{
+    if(!Object.keys(letterMap).length||solved.size>=CLUE_WORDS.length)return;
+    const typed=Object.keys(userMap).some(k=>userMap[k]);
+    if(!typed&&!solved.size)return;
+    localStorage.setItem(VB_SAVE_KEY,JSON.stringify({lvl,userMap,solved:[...solved],hintsLeft,hintsUsedGame,tips:tipsAprendidas}));
+  }catch(e){}
+}
+function vbClearSave(){try{localStorage.removeItem(VB_SAVE_KEY);}catch(e){}vbRefreshContinue();}
+function vbLoadSave(){
+  try{
+    const d=JSON.parse(localStorage.getItem(VB_SAVE_KEY)||'null');
+    if(d&&LEVELS[d.lvl]&&d.userMap&&Array.isArray(d.solved))return d;
+  }catch(e){}
+  return null;
+}
+function vbRefreshContinue(){
+  const b=document.getElementById('btnContinue');
+  if(b)b.style.display=vbLoadSave()?'':'none';
+}
+document.getElementById('playerName').addEventListener('input',e=>vbSaveName(e.target.value.trim()));
+window.addEventListener('pagehide',vbSaveGame);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)vbSaveGame();});
+document.getElementById('btnContinue').addEventListener('click',()=>{
+  const d=vbLoadSave();if(!d){vbRefreshContinue();return;}
+  playerName=document.getElementById('playerName').value.trim()||'Herói';
+  vbSaveName(playerName);
+  lvl=d.lvl;applyLevel(lvl);letterMap=buildLetterMap();
+  userMap=d.userMap;solved=new Set(d.solved);hintsLeft=d.hintsLeft;hintsUsedGame=d.hintsUsedGame||0;tipsAprendidas=d.tips||[];
+  activeWord=null;
+  document.getElementById('startScreen').classList.remove('active');
+  document.getElementById('gameScreen').classList.add('active');
+  document.getElementById('fixed-robot-name').textContent='👤 '+playerName;
+  document.getElementById('fixed-robot-wrap').classList.add('visible');
+  showBub('Bem-vindo de volta, '+playerName+'! 🎄');
+  rebuildGridKeepState();
+});
+(function(){
+  let n='';try{n=localStorage.getItem(VB_NAME_KEY)||'';}catch(e){}
+  if(n)document.getElementById('playerName').value=n;
+  vbRefreshContinue();
+})();
 
 /* ══ NAV ══ */
 document.getElementById('btnStart').addEventListener('click', () => {
-  playerName = document.getElementById('playerName').value.trim() || 'Amigo do Natal';
+  playerName = document.getElementById('playerName').value.trim() || 'Herói';
+  vbSaveName(playerName);
   lvl = startSel;
   document.getElementById('startScreen').classList.remove('active');
   document.getElementById('gameScreen').classList.add('active');
   setLetterbox('#0e2a1f');
   document.getElementById('fixed-robot-name').textContent = '👤 '+playerName;
   document.getElementById('fixed-robot-wrap').classList.add('visible');
-  document.querySelectorAll('#gameScreen .lvl-btn').forEach(b=>b.classList.toggle('active', b.dataset.level===lvl));
   showBub('Vamos lá, ' + playerName + '! 🎈');
   buildGrid();
 });
@@ -1464,6 +1715,7 @@ function goMenu() {
   setLetterbox('#050f0a');
   showBub('Descobre as palavras do Natal! ✏️🎄');
   stopConf();
+  vbRefreshContinue();
 }
 let resT, lastInnerW = window.innerWidth, lastInnerH = window.innerHeight;
 function rebuildGridIfActiveAndChanged(){
@@ -1495,7 +1747,7 @@ function rebuildGridKeepState() {
     userMap = savedUser;
     solved = savedSolved;
     hintsLeft = savedHints;
-    document.getElementById('hints-left').textContent = hintsLeft;
+    updateHintUI();
     for (const key in userMap) {
       const [r,c] = key.split(',').map(Number);
       const inp = getInput(r,c);
@@ -1515,6 +1767,40 @@ function rebuildGridKeepState() {
     });
     updateProgress();
   }));
+}
+
+/* ── CELEBRAÇÃO: células a saltar, faíscas, cartaz com a palavra ── */
+const PRAISE=['Ho ho ho!','Boa!','Fantástico!','Isso mesmo!','Descobriste!','Uau!','Excelente!'];
+let wordPopT=null;
+function celebrate(w){
+  const n=w.w.length;
+  for(let k=0;k<n;k++){
+    const r=w.d==='down'?w.r+k:w.r, c=w.d==='across'?w.c+k:w.c;
+    const cl=getCell(r,c); if(!cl) continue;
+    cl.style.animationDelay=(k*60)+'ms';
+    cl.classList.remove('pop');void cl.offsetWidth;cl.classList.add('pop');
+    for(let m=0;m<3;m++){
+      const s=document.createElement('span');
+      s.className='spark';s.textContent=['⭐','❄️','✨'][(k+m)%3];
+      const ang=Math.random()*Math.PI*2,dist=22+Math.random()*26;
+      s.style.setProperty('--dx',Math.cos(ang)*dist+'px');
+      s.style.setProperty('--dy',Math.sin(ang)*dist+'px');
+      s.style.setProperty('--rot',(Math.random()*180-90)+'deg');
+      s.style.animationDelay=(k*60)+'ms';
+      cl.appendChild(s);
+      setTimeout(()=>s.remove(),1100+k*60);
+    }
+    setTimeout(()=>{cl.classList.remove('pop');cl.style.animationDelay='';},800+k*60);
+  }
+  const ce=document.querySelector('.clue-item[data-key="'+wordKey(w)+'"]');
+  if(ce){ce.classList.remove('just');void ce.offsetWidth;ce.classList.add('just');}
+  const wp=document.getElementById('wordPop');
+  if(wp){
+    wp.innerHTML='<small>'+PRAISE[Math.floor(Math.random()*PRAISE.length)]+'</small><b>'+w.w+'</b>';
+    wp.style.setProperty('--wp','var(--bc'+((w.n||0)%13)+')');
+    wp.classList.remove('show');void wp.offsetWidth;wp.classList.add('show');
+    clearTimeout(wordPopT);wordPopT=setTimeout(()=>wp.classList.remove('show'),1500);
+  }
 }
 
 /* ══ CONFETTI ══ */
